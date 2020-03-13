@@ -41,3 +41,15 @@ guess2 = add_modulo_alphabet(d, "---------the----------")
 
 # Continuing to test in this way gives some clues as to what letters appear
 # where in the plaintexts. Now write some code to automate the process!
+
+def addwordtod(d, word):
+    """This function adds [word] to all possible places in [d(ifference)] and gives all those outputs
+Input = difference of two cypher texts (with same otp)
+Output = dict where keys are start of difference where word is added and values are the added outcome  """
+    dict = {}
+    for i in range(0,len(d)-(len(word)-1)):
+        dict[i]=add_modulo_alphabet(d[i:i+len(word)], word)
+        print(dict[i])
+
+
+        
