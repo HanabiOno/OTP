@@ -73,11 +73,14 @@ Output = dict where keys are start of difference where word is added and values 
 def addngramtod(d, txt, T=1, n=3):
     """Doesn't work yet! Tries addition of common english ngrams to difference until T (threshold) of the outcomes is also a common english ngram. Threshhold is standard set to 1 and n-gram to 3"""
     with open(txt, 'r') as txt:
+        txt = txt.readlines() 
+        for index in range(len(txt)): 
+            txt[index] = txt[index][0:n]
         for ngram in txt:
             i = 0
             "when there are T common english n-grams found we stop"
             "ngram[0:n] because the file also contains numbers after each ngram"
-            out = addwordtod(d, ngram[0:n])
+            out = addwordtod(d, ngram)
             while i < T:
                 for ngram_out in out:
                     "We want to save the index of the output n-gram if it is a common english n-gram"
@@ -85,8 +88,8 @@ def addngramtod(d, txt, T=1, n=3):
                     if ngram_out in txt:
                         ngrams_out.append(out.index(ngram_out))
                         i += 1
-                    else:
-                        continue
+                    
+                break #think this should work.                         
         return ngram, idx_ngram
     "We also want to know which common english ngram gave at leat T commonenglish ngrams as output"
 
