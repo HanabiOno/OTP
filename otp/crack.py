@@ -59,7 +59,6 @@ def replacer(word, index, strng): #takes in a string and replaces a part of a gi
                 lst[i] = word[counter]
                 counter += 1
     ''.join(lst)
-            
     return lst
 
 def addwordtod(d, word):
