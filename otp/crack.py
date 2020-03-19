@@ -1,3 +1,4 @@
+
 # A first hint at how one might go about cracking the codes.
 
 from otp import (
@@ -41,6 +42,25 @@ guess2 = add_modulo_alphabet(d, "---------the----------")
 
 # Continuing to test in this way gives some clues as to what letters appear
 # where in the plaintexts. Now write some code to automate the process!
+
+def str_builder(): #builds a string the size of the otp
+    length = len(otp0)
+    output_str = ''
+    for i in range(length):
+        output_str += '-'
+    return output 
+        
+def replacer(word, index, strng): #takes in a string and replaces a part of a give string from a certain position with the inputted word
+    lst = list(strng)
+    counter = 0
+    for i in range(len(strng)):
+        if i >= index and i < index+len(word):
+            if lst[i] == '-': 
+                lst[i] = word[counter]
+                counter += 1
+    ''.join(lst)
+            
+    return lst
 
 def addwordtod(d, word):
     """This function adds [word] to all possible places in [d(ifference)] and gives all those outputs
