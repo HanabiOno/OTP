@@ -112,7 +112,6 @@ def proofofconceptp1(dif1, dif2):
             b[i] =  a[i] #filling the dic with the ngrams with their index as key
     for key in b: #We'll now go through the ngrams we found                
         c = findwordswithsequence(b[key]) #would return english words with that ngram
-        j = 0
         for j in c: #lets go through the words
            #  addwordtodatindex(dif, word, index) a function that would only do addwordtod at a specific index
             wherengraminword = j.find(b[key]) #where in the word is the ngram
