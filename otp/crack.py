@@ -44,16 +44,16 @@ guess2 = add_modulo_alphabet(d, "---------the----------")
 # Continuing to test in this way gives some clues as to what letters appear
 # where in the plaintexts. Now write some code to automate the process!
 
-c0 = open("cyphertext0.txt", "r")
-c1 = open("cyphertext1.txt", "r")
-difference0 = subtract_modulo_alphabet(c0.read(), c1.read())
-difference1 = subtract_modulo_alphabet(c1.read(), c0.read())
-def str_builder(): #builds a string the size of the otp
-    length = len(otp0)
-    output_str = ''
-    for i in range(length):
-        output_str += '-'
-    return output 
+#c0 = open("cyphertext0.txt", "r")
+#c1 = open("cyphertext1.txt", "r")
+#difference0 = subtract_modulo_alphabet(c0.read(), c1.read())
+#difference1 = subtract_modulo_alphabet(c1.read(), c0.read())
+#def str_builder(): #builds a string the size of the otp
+#    length = len(otp0)
+#    output_str = ''
+#    for i in range(length):
+#        output_str += '-'
+#    return output 
         
 def replacer(word, index, strng): #takes in a string and replaces a part of a give string from a certain position with the inputted word
     lst = list(strng)
@@ -98,3 +98,39 @@ def addngramtod(d, txt, T=1, n=3):
         return ngram, idx_ngram
     "We also want to know which common english ngram gave at leat T commonenglish ngrams as output"
 
+'''
+#Concept of overarching function, dif1 and dif2 are the two modulo differences
+def proofofconceptp1(dif1, dif2):
+    a = addwordtod(dif1, "the") #all the results from 'the'
+    b = {} #dic we will use for english ngrams
+    finalstringlength = len(dif1)
+    finalstring1 = "-" * finalstringlength #The finalstring of one of the cypher texts
+    i = 0
+    while i < len(a): #i is the current ngram we are checking
+        if isngram(a[i], 3): #A function that would check if the input is an english ngram
+            b[i] =  a[i] #filling the dic with the ngrams with their index as key
+    for key in b: #We'll now go through the ngrams we found                
+        c = findwordswithsequence(b[key]) #would return english words with that ngram
+        j = 0
+        for j in c: #lets go through the words
+           #  addwordtodatindex(dif, word, index) a function that would only do addwordtod at a specific index
+            wherengraminword = j.find(b[key]) #where in the word is the ngram
+            wordstartindex = key - wherengraminword #at what index should word start
+            d = addwordtodatindex(dif2, j, wordstartindex) #see explanation above
+            remainingword = j
+            makesresultsense = True
+            while len(remainingword) > 2: #We check if the word would work 
+                if not isngram(remainingword[:2], 3):
+                    makesresultsense = False #if it doesn't, we'll go to the next
+                    break
+                else:
+                    remainingword = remainingword[3:]
+            if makesresultsense == True: #if the whole word makes sense we move on
+                finalstring1 = finalstring1[:wordstartindex -1] + j + finalstring1[wordstartindex + len(j):] #Change finalstring1 to contain the word we found
+                break
+    return finalstring1
+
+#now we have a string where a bunch of the "-" have been replaced with words. Now we can use these words to find words in the other string (finalstring2). We could keep doing this interchangingly until we have rather full strings
+
+def proofofconceptp2
+'''
