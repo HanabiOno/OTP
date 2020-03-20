@@ -22,7 +22,8 @@ cyphertext1, _ = otp_encrypt(plaintext1, otp0)
 cyphertext2, _ = otp_encrypt(plaintext2, otp0)
 
 # Take the difference between the cyphertexts
-d = subtract_modulo_alphabet(cyphertext0, cyphertext12)
+d = subtract_modulo_alphabet(cyphertext2, cyphertext1)
+e = subtract_modulo_alphabet(cyphertext1, cyphertext2)
 
 # Now suppose we guess that the word 'the' occurs in plaintext1.
 guess1 = add_modulo_alphabet(d, "the-------------------")
