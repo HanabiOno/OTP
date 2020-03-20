@@ -8,6 +8,7 @@ from otp import (
     add_modulo_alphabet,
 )
 
+
 # Make two short plaintexts using only lowercase letters.
 
 plaintext1 = "the cat sat on the mat"
@@ -21,7 +22,7 @@ cyphertext1, _ = otp_encrypt(plaintext1, otp0)
 cyphertext2, _ = otp_encrypt(plaintext2, otp0)
 
 # Take the difference between the cyphertexts
-d = subtract_modulo_alphabet(cyphertext2, cyphertext1)
+d = subtract_modulo_alphabet(cyphertext0, cyphertext12)
 
 # Now suppose we guess that the word 'the' occurs in plaintext1.
 guess1 = add_modulo_alphabet(d, "the-------------------")
@@ -43,6 +44,10 @@ guess2 = add_modulo_alphabet(d, "---------the----------")
 # Continuing to test in this way gives some clues as to what letters appear
 # where in the plaintexts. Now write some code to automate the process!
 
+c0 = open("cyphertext0.txt", "r")
+c1 = open("cyphertext1.txt", "r")
+difference0 = subtract_modulo_alphabet(c0.read(), c1.read())
+difference1 = subtract_modulo_alphabet(c1.read(), c0.read())
 def str_builder(): #builds a string the size of the otp
     length = len(otp0)
     output_str = ''
