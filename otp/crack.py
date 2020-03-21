@@ -56,16 +56,14 @@ guess2 = add_modulo_alphabet(d, "---------the----------")
 #        output_str += '-'
 #    return output 
         
-def replacer(word, index, strng): #takes in a string and replaces a part of a give string from a certain position with the inputted word
-    lst = list(strng)
+def replacer(word, index, lst): #takes in a string and replaces a part of a give string from a certain position with the inputted word                                                                    
     counter = 0
-    for i in range(len(strng)):
+    for i in range(len(lst)):
         if i >= index and i < index+len(word):
-            if lst[i] == '-': 
-                lst[i] = word[counter]
+                lst[i][1] = word[counter]
                 counter += 1
-    ''.join(lst)
     return lst
+
 
 def addwordtod(d, word):
     """This function adds [word] to all possible places in [d(ifference)] and gives all those outputs
@@ -134,3 +132,49 @@ def proofofconceptp1(dif1, dif2):
 
 def proofofconceptp2
 '''
+
+def str_indexer(strng):
+    lst =[]
+    index_position = 0
+    for letter in strng:
+        temp_lst = []
+        temp_lst.append(index_position)
+        temp_lst.append(letter)
+        lst.append(temp_lst)
+        index_position += 1
+    return lst 
+        
+
+def input_module(c1_c2, c2_c1, string1, string2):
+    choice = input("Choose string to start from: (1/2)")
+    user_index = eval(input('Enter index you want to start from: '))
+    user_word = input('Enter word: ')
+    if choice == '1':
+        output_2 = add_modulo_alphabet(e[user_index:user_index+len(user_word)], user_word)
+        output_1 = add_modulo_alphabet(d[user_index:user_index+len(user_word)], output_2)
+    if choice == '2':
+        output_1 = add_modulo_alphabet(d[user_index:user_index+len(user_word)], user_word)
+        output_2 = add_modulo_alphabet(e[user_index:user_index+len(user_word)], output_1)
+    
+    return(replacer(output_1,  user_index, string1), replacer(output_2,  user_index, string2))
+    
+    
+def func_loop(string1, string2):
+    new_str1 = str_indexer(string1)
+    new_str2 = str_indexer(string2)
+    user_input ='yes'
+    while user_input == 'yes' or user_input == 'yes ':
+        temp1, temp2 = input_module(d, e, new_str1, new_str2)
+        print(temp1)
+        print('------------------------------------------------------------------------------')
+        print(temp2)
+        second_input = input('Do you want to keep this string?:')
+        if second_input == 'yes' or second_input == 'yes ':
+            new_str1 = temp1
+            new_str2 = temp2
+        user_input = input("Type yes if you want to continue")
+
+
+
+
+func_loop("hap-----------------", "----------------------")
