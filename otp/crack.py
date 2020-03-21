@@ -45,10 +45,10 @@ guess2 = add_modulo_alphabet(d, "---------the----------")
 # Continuing to test in this way gives some clues as to what letters appear
 # where in the plaintexts. Now write some code to automate the process!
 
-#c0 = open("cyphertext0.txt", "r")
-#c1 = open("cyphertext1.txt", "r")
-#difference0 = subtract_modulo_alphabet(c0.read(), c1.read())
-#difference1 = subtract_modulo_alphabet(c1.read(), c0.read())
+c0 = open("cyphertext0.txt", "r")
+c1 = open("cyphertext1.txt", "r")
+difference0 = subtract_modulo_alphabet(c0.read(), c1.read())
+difference1 = subtract_modulo_alphabet(c1.read(), c0.read())
 #def str_builder(): #builds a string the size of the otp
 #    length = len(otp0)
 #    output_str = ''
@@ -103,6 +103,38 @@ def addngramtod(d, txt, T=1, n=3):
                 break #think this should work.                         
         return ngram, idx_ngram
     "We also want to know which common english ngram gave at leat T commonenglish ngrams as output"
+
+def isngram(str):
+    #Takes a string str and decides if str is an ngram.
+    str = str.upper()
+    if len(str) == 3:
+        with open("english_trigrams.txt", "r") as f:
+            data = f.readlines()
+        for line in data:
+            if str in line:
+                return True
+        return False
+    if len(str) == 4:
+        with open("english_quadgrams.txt", "r") as f:
+            data = f.readlines()
+        for line in data:
+            if str in line:
+                return True
+        return False
+    
+def isenglishword(str):
+    #Takes a string str and return True if that string is a word, False otherwise
+    return False
+
+def findwordswithsequence(str):
+    #Takes a string str and outputs a list with all words that contain str
+    return ["apple"]
+
+def addwordtodatindex(d, word, index):
+    #Takes a difference d, and adds word to d at index, returns a string with the new changed symbols.
+    word_length = len(word)
+    return add_modulo_alphabet(d[index:(index + word_length)], word)
+    
 
 '''
 def couldbeenglish(str1): # A function that takes a string and returns True if the string looks like english
