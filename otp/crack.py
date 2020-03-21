@@ -58,11 +58,18 @@ guess2 = add_modulo_alphabet(d, "---------the----------")
         
 def replacer(word, index, lst): #takes in a string and replaces a part of a give string from a certain position with the inputted word                                                                    
     counter = 0
+    new_list = []
     for i in range(len(lst)):
+        temp_list = ['','']
         if i >= index and i < index+len(word):
-                lst[i][1] = word[counter]
-                counter += 1
-    return lst
+            temp_list[0]= i
+            temp_list[1] = word[counter]
+            new_list.append(temp_list)
+            counter += 1
+        else:
+            new_list.append(lst[i])
+            
+    return new_list
 
 
 def addwordtod(d, word):
@@ -164,6 +171,9 @@ def func_loop(string1, string2):
     new_str2 = str_indexer(string2)
     user_input ='yes'
     while user_input == 'yes' or user_input == 'yes ':
+        print(new_str1)
+        print('------------------------------------------------------------------------------')
+        print(new_str2)
         temp1, temp2 = input_module(d, e, new_str1, new_str2)
         print(temp1)
         print('------------------------------------------------------------------------------')
@@ -178,3 +188,4 @@ def func_loop(string1, string2):
 
 
 func_loop("hap-----------------", "----------------------")
+
