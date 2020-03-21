@@ -124,8 +124,14 @@ def isngram(str):
     
 def isenglishword(str):
     #Takes a string str and return True if that string is a word, False otherwise
+    str = str.upper()
+    with open("dictionary.txt", "r") as d:
+        dictionary = d.readlines()
+    for line in dictionary:
+        if str in line:
+            return True
     return False
-
+    
 def findwordswithsequence(str):
     #Takes a string str and outputs a list with all words that contain str
     return ["apple"]
