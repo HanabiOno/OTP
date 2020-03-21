@@ -134,7 +134,14 @@ def isenglishword(str):
     
 def findwordswithsequence(str):
     #Takes a string str and outputs a list with all words that contain str
-    return ["apple"]
+    str = str.upper()
+    words_with_str = []
+    with open("dictionary.txt", "r") as d:
+        dictionary = d.readlines()
+    for line in dictionary:
+        if str in line:
+            words_with_str.append(line[0:-1])
+    return words_with_str
 
 def addwordtodatindex(d, word, index):
     #Takes a difference d, and adds word to d at index, returns a string with the new changed symbols.
