@@ -107,20 +107,12 @@ def addngramtod(d, txt, T=1, n=3):
 def isngram(str):
     #Takes a string str and decides if str is an ngram.
     str = str.upper()
-    if len(str) == 3:
-        with open("english_trigrams.txt", "r") as f:
-            data = f.readlines()
-        for line in data:
-            if str in line:
-                return True
-        return False
-    if len(str) == 4:
-        with open("english_quadgrams.txt", "r") as f:
-            data = f.readlines()
-        for line in data:
-            if str in line:
-                return True
-        return False
+    with open("dictionary.txt", "r") as d:
+        dictionary = d.readlines()
+    for line in dictionary:
+        if str in line:
+            return True
+    return False
     
 def isenglishword(str):
     #Takes a string str and return True if that string is a word, False otherwise
