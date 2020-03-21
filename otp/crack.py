@@ -128,7 +128,7 @@ def isenglishword(str):
     with open("dictionary.txt", "r") as d:
         dictionary = d.readlines()
     for line in dictionary:
-        if str in line:
+        if str == line[0:-1]:
             return True
     return False
     
