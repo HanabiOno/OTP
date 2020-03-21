@@ -160,7 +160,7 @@ def couldsubbeenglish(str1):
     if not isngram(str1[:2], 3):
         return False
     elif len(str1) == 3:
-        retrun True
+        return True
     else:
         if len(str1[3:]) > 2:
             return couldsubbeenglish(str1[3:])
