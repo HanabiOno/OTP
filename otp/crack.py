@@ -105,6 +105,70 @@ def addngramtod(d, txt, T=1, n=3):
     "We also want to know which common english ngram gave at leat T commonenglish ngrams as output"
 
 '''
+def couldbeenglish(str1): # A function that takes a string and returns True if the string looks like english
+    CAPITALS = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    SPECIALS = ("!\"#$%'()*-/0123456789:;?@[]\n") #removed spacebar period and comma for acuracy. Not sure if newline will cause major issues.
+    OSPECIALS = (" .,")
+    LETTERS = ("abcdefghijklmnopqrstuvwxyz")
+    i=0
+    while i < len(str1) - 1:
+        if str1[i] in CAPITALS and str1[i+1] in CAPITALS:
+            return False
+        elif str1[i] in SPECIALS and str1[i+1] in SPECIALS:
+            return False
+        elif str1[i] in CAPITALS and str1[i+1] in SPECIALS:
+            return False
+        elif str1[1] in LETTERS and str1[i+1] in CAPITALS:
+            return False
+        i += 1
+    indexofspecials = [] #list of the indexes of special symbols
+    i=0
+    while i < len(str1):
+        if str1[i] in SPECIALS or str1[i] in OSPECIALS:
+            indexofspecials.append(i)
+        i += 1
+    if not indexofspecials: #if the list is empty
+        return couldsubbeenglish(lower(str1))
+    checkcount = 0 #to see if we actually did any real checks
+    if 0 not in indexofspecials: #let's check the first symbols up to the first special
+        tmpstring = str1[:indexofspecials[0]]
+        if len(tmpstring) > 2:
+            if couldsubbeenglish(lower(tmpstring)) == False:
+                return False
+            else:
+                checkcount += 1
+    if len(str1) - 1 not in indexofspecials: #let's check the symbols after the last special
+        tmpstring = str1[indexofspecials[-1]:]
+        if len(tmpstring) > 2:
+            if couldsubbeenglish(lower(tmpstring)) == False:
+                return False
+            else:
+                checkcount += 1
+    i=0
+    #Let's check if the symbols between the specials make english words
+    while i + 1 < len(indexofspecials):
+        if not isenglishword(str1[indexofspecials[i]+1:indexofspecials[i+1]-1]):
+            return False
+        else:
+            checkcount += 1
+        i += 1
+    if checkcount > 0:
+        return True
+            
+#helper function for couldbeenglish. Takes an input that is only letters and at least 3 long and returns a boolean if it could be english
+def couldsubbeenglish(str1):
+    if not isngram(str1[:2], 3):
+        return False
+    elif len(str1) == 3:
+        retrun True
+    else:
+        if len(str1[3:]) > 2:
+            return couldsubbeenglish(str1[3:])
+        else:
+            return couldsubbeenglish(str1[1:3])
+'''
+
+'''
 #Concept of overarching function, dif1 and dif2 are the two modulo differences
 def proofofconceptp1(dif1, dif2):
     a = addwordtod(dif1, "the") #all the results from 'the'
@@ -122,15 +186,8 @@ def proofofconceptp1(dif1, dif2):
             wherengraminword = j.find(b[key]) #where in the word is the ngram
             wordstartindex = key - wherengraminword #at what index should word start
             d = addwordtodatindex(dif2, j, wordstartindex) #see explanation above
-            remainingword = j
-            makesresultsense = True
-            while len(remainingword) > 2: #We check if the word would work 
-                if not isngram(remainingword[:2], 3):
-                    makesresultsense = False #if it doesn't, we'll go to the next
-                    break
-                else:
-                    remainingword = remainingword[3:]
-            if makesresultsense == True: #if the whole word makes sense we move on
+           # couldbeenglish(d) is a function that checks if a string could be english
+            if couldbeenglish(d) == True: #if the whole word makes sense we move on
                 finalstring1 = finalstring1[:wordstartindex -1] + j + finalstring1[wordstartindex + len(j):] #Change finalstring1 to contain the word we found
                 break
     return finalstring1
