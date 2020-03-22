@@ -120,7 +120,7 @@ def isenglishword(str):
     with open("../dictionary.txt", "r") as d:
         dictionary = d.readlines()
     for line in dictionary:
-        if str == line[0:-1]:
+        if str == line[0:-2]:
             return True
     return False
     
@@ -132,7 +132,7 @@ def findwordswithsequence(str):
         dictionary = d.readlines()
     for line in dictionary:
         if str in line:
-            words_with_str.append(line[0:-1])
+            words_with_str.append(line[0:-2])
     return words_with_str
 
 def addwordtodatindex(d, word, index):
