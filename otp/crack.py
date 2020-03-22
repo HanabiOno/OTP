@@ -45,8 +45,8 @@ guess2 = add_modulo_alphabet(d, "---------the----------")
 # Continuing to test in this way gives some clues as to what letters appear
 # where in the plaintexts. Now write some code to automate the process!
 
-c0 = open("cyphertext0.txt", "r")
-c1 = open("cyphertext1.txt", "r")
+c0 = open("../cyphertext0.txt", "r")
+c1 = open("../cyphertext1.txt", "r")
 difference0 = subtract_modulo_alphabet(c0.read(), c1.read())
 difference1 = subtract_modulo_alphabet(c1.read(), c0.read())
 #def str_builder(): #builds a string the size of the otp
