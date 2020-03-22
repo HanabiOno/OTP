@@ -107,7 +107,7 @@ def addngramtod(d, txt, T=1, n=3):
 def isngram(str):
     #Takes a string str and decides if str is an ngram.
     str = str.upper()
-    with open("dictionary.txt", "r") as d:
+    with open("../dictionary.txt", "r") as d:
         dictionary = d.readlines()
     for line in dictionary:
         if str in line:
@@ -117,7 +117,7 @@ def isngram(str):
 def isenglishword(str):
     #Takes a string str and return True if that string is a word, False otherwise
     str = str.upper()
-    with open("dictionary.txt", "r") as d:
+    with open("../dictionary.txt", "r") as d:
         dictionary = d.readlines()
     for line in dictionary:
         if str == line[0:-1]:
@@ -128,7 +128,7 @@ def findwordswithsequence(str):
     #Takes a string str and outputs a list with all words that contain str
     str = str.upper()
     words_with_str = []
-    with open("dictionary.txt", "r") as d:
+    with open("../dictionary.txt", "r") as d:
         dictionary = d.readlines()
     for line in dictionary:
         if str in line:
