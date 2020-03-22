@@ -140,8 +140,6 @@ def addwordtodatindex(d, word, index):
     word_length = len(word)
     return add_modulo_alphabet(d[index:(index + word_length)], word)
     
-
-
 def couldbeenglish(str1): # A function that takes a string and returns True if the string looks like english
     CAPITALS = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
     SPECIALS = ("!\"#$%'()*-/0123456789:;?@[]\n") #removed spacebar period and comma for acuracy. Not sure if newline will cause major issues.
@@ -194,34 +192,37 @@ def couldbeenglish(str1): # A function that takes a string and returns True if t
         return True
     else:
         return False
-            
+
 '''
 #Concept of overarching function, dif1 and dif2 are the two modulo differences
 def proofofconceptp1(dif1, dif2):
     a = addwordtod(dif1, "the") #all the results from 'the'
     b = {} #dic we will use for english ngrams
-    finalstringlength = len(dif1)
+    finalstringlength = max(len(dif1), len(dif2))
     finalstring1 = "-" * finalstringlength #The finalstring of one of the cypher texts
     i = 0
     while i < len(a): #i is the current ngram we are checking
-        if isngram(a[i], 3): #A function that would check if the input is an english ngram
+        if isngram(a[i]): #A function that would check if the input is an english ngram
             b[i] =  a[i] #filling the dic with the ngrams with their index as key
+        i += 1
     for key in b: #We'll now go through the ngrams we found                
         c = findwordswithsequence(b[key]) #would return english words with that ngram
-        for j in c: #lets go through the words
-           #  addwordtodatindex(dif, word, index) a function that would only do addwordtod at a specific index
-            wherengraminword = j.find(b[key]) #where in the word is the ngram
+        for word in c: #lets go through the words
+            upper = b[key].upper()
+            wherengraminword = word.find(upper) #where in the word is ngram
             wordstartindex = key - wherengraminword #at what index should word start
-            d = addwordtodatindex(dif2, j, wordstartindex) #see explanation above
-           # couldbeenglish(d) is a function that checks if a string could be english
+            if word == "HAPPY":
+                print(wherengraminword)
+                print(wordstartindex)
+            d = addwordtodatindex(dif2, word, wordstartindex)
             if couldbeenglish(d) == True: #if the whole word makes sense we move on
-                finalstring1 = finalstring1[:wordstartindex -1] + j + finalstring1[wordstartindex + len(j):] #Change finalstring1 to contain the word we found
+                finalstring1 = finalstring1[:wordstartindex -1] + word + finalstring1[wordstartindex + len(word):] #Change finalstring1 to contain the word we found
                 break
     return finalstring1
 
 #now we have a string where a bunch of the "-" have been replaced with words. Now we can use these words to find words in the other string (finalstring2). We could keep doing this interchangingly until we have rather full strings
 
-def proofofconceptp2
+#def proofofconceptp2
 '''
 
 def str_indexer(strng):
