@@ -121,13 +121,7 @@ def isenglishword(str):
         dictionary = d.readlines()
     for line in dictionary:
         if str == line[0:-1]:
-            return True
-        if str[-1] == "s" and str[:-1] == line[0:-1]:
-            return True
-        if str[-3:] == "ing" and str[:-3] == line[0:-1]:
-            return True
-        if str[-2:] == "ed" and str[:-2] == line[0:-1]:
-            return True            
+            return True           
     return False
     
 def findwordswithsequence(str):

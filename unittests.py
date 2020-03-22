@@ -37,7 +37,7 @@ class TestPM(unittest.TestCase):
         self.assertEqual(isenglishword("though"), True)
 
     def test_is_english_thinks(self):
-        self.assertEqual(isenglishword("thinks"), False)
+        self.assertEqual(isenglishword("thinks"), True)
 
     def test_is_english_gr(self):
         self.assertEqual(isenglishword("gr"), False)
