@@ -1,8 +1,8 @@
 from crack import(
-    isngram
-    isenglishword
-    findwordswithsequence
-    addwordtodatindex
+    isngram,
+    isenglishword,
+    findwordswithsequence,
+    addwordtodatindex,
 )
 from otp import (
     one_time_pad,
@@ -31,7 +31,7 @@ class TestPM(unittest.TestCase):
         self.assertEqual(isngram("xvcq"), False)
 
     def test_is_iNg_trigram(self):
-        self.asserEqual(isngram("iNg"), True)
+        self.assertEqual(isngram("iNg"), True)
 
     def test_is_english_though(self):
         self.assertEqual(isenglishword("though"), True)
@@ -42,8 +42,8 @@ class TestPM(unittest.TestCase):
     def test_is_english_gr(self):
         self.assertEqual(isenglishword("gr"), False)
 
-    def test_add_cat_to_d_at_4:
-        self.asserEqual(addwordtodatindex(d, "cat", 4), "y b")                                
+    def test_add_cat_to_d_at_4(self):
+        self.assertEqual(addwordtodatindex(d, "cat", 4), "y b")                                
 
 if __name__ == '__main__':
     unittest.main()
