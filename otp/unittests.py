@@ -3,6 +3,8 @@ from crack import(
     isenglishword,
     findwordswithsequence,
     addwordtodatindex,
+    replacer,
+    str_indexer,
 )
 from otp import (
     one_time_pad,
@@ -45,5 +47,11 @@ class TestPM(unittest.TestCase):
     def test_add_cat_to_d_at_4(self):
         self.assertEqual(addwordtodatindex(d, "cat", 4), "y b")                                
 
+     def str_indexer(self):
+        self.assertEqual(str_indexer('The cat'), [[0, 'T'], [1, 'h'], [2, 'e'], [3, ' '], [4, 'c'], [5, 'a'], [6, 't']]) 
+    
+    def test_replacer(self):
+        self.assertEqual(replacer('fox', 4,[[0, 'T'], [1, 'h'], [2, 'e'], [3, ' '], [4, 'c'], [5, 'a'], [6, 't']]), [[0, 'T'], [1, 'h'], [2, 'e'], [3, ' '], [4, 'f'], [5, 'o'], [6, 'x']])
+        
 if __name__ == '__main__':
     unittest.main()
