@@ -56,7 +56,7 @@ difference1 = subtract_modulo_alphabet(c1.read(), c0.read())
 #        output_str += '-'
 #    return output 
         
-def replacer(word, index, lst): #takes in a string and replaces a part of a give string from a certain position with the inputted word                                                                    
+def replacer(word, index, lst): #takes in a list replacing a certain part, from the given index, by an inputted word                                                                    
     counter = 0
     new_list = []
     for i in range(len(lst)):
@@ -250,7 +250,13 @@ def input_module(c1_c2, c2_c1, string1, string2):
         output_2 = add_modulo_alphabet(e[user_index:user_index+len(user_word)], output_1)
     
     return(replacer(output_1,  user_index, string1), replacer(output_2,  user_index, string2))
-    
+
+def str_returner(lst):
+    new_list = []
+    for i in range(len(lst)):
+        new_list.append(lst[i][1])
+    new_list = ''.join(new_list)
+    return new_list
     
 def func_loop(string1, string2):# a function that allows for the continual guessing of the correct word. 
     new_str1 = str_indexer(string1)
