@@ -107,7 +107,7 @@ def addngramtod(d, txt, T=1, n=3):
 def isngram(str):
     #Takes a string str and decides if str is an ngram.
     str = str.upper()
-    with open("../dictionary.txt", "rU") as d:
+    with open("../dictionary.txt", "r") as d:
         dictionary = d.readlines()
     for line in dictionary:
         if str in line:
@@ -117,7 +117,7 @@ def isngram(str):
 def isenglishword(str):
     #Takes a string str and return True if that string is a word, False otherwise
     str = str.upper()
-    with open("../dictionary.txt", "rU") as d:
+    with open("../dictionary.txt", "r") as d:
         dictionary = d.readlines()
     for line in dictionary:
         if str == line[0:-1]:
@@ -129,7 +129,7 @@ def findwordswithsequence(str):
     #Takes a string str and outputs a list with all words that contain str
     str = str.upper()
     words_with_str = []
-    with open("../dictionary.txt", "rU") as d:
+    with open("../dictionary.txt", "r") as d:
         dictionary = d.readlines()
     for line in dictionary:
         if str in line:
@@ -226,7 +226,7 @@ def proofofconceptp1(dif1, dif2):
 #def proofofconceptp2
 '''
 
-def str_indexer(strng):
+def str_indexer(strng): #takes in a string and returns a list with the letters and their index positions
     lst =[]
     index_position = 0
     for letter in strng:
@@ -238,7 +238,7 @@ def str_indexer(strng):
     return lst 
         
 
-def input_module(c1_c2, c2_c1, string1, string2):
+def input_module(c1_c2, c2_c1, string1, string2):  
     choice = input("Choose string to start from: (1/2)")
     user_index = eval(input('Enter index you want to start from: '))
     user_word = input('Enter word: ')
@@ -252,7 +252,7 @@ def input_module(c1_c2, c2_c1, string1, string2):
     return(replacer(output_1,  user_index, string1), replacer(output_2,  user_index, string2))
     
     
-def func_loop(string1, string2):
+def func_loop(string1, string2):# a function that allows for the continual guessing of the correct word. 
     new_str1 = str_indexer(string1)
     new_str2 = str_indexer(string2)
     user_input ='yes'
