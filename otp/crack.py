@@ -54,9 +54,9 @@ difference1 = subtract_modulo_alphabet(c1.read(), c0.read())
 #    output_str = ''
 #    for i in range(length):
 #        output_str += '-'
-#    return output 
-        
-def replacer(word, index, lst): #takes in a list replacing a certain part, from the given index, by an inputted word                                                                    
+#    return output
+
+def replacer(word, index, lst): #takes in a list replacing a certain part, from the given index, by an inputted word
     counter = 0
     new_list = []
     for i in range(len(lst)):
@@ -68,7 +68,7 @@ def replacer(word, index, lst): #takes in a list replacing a certain part, from 
             counter += 1
         else:
             new_list.append(lst[i])
-            
+
     return new_list
 
 
@@ -84,8 +84,8 @@ Output = dict where keys are start of difference where word is added and values 
 def addngramtod(d, txt, T=1, n=3):
     """Doesn't work yet! Tries addition of common english ngrams to difference until T (threshold) of the outcomes is also a common english ngram. Threshhold is standard set to 1 and n-gram to 3"""
     with open(txt, 'r') as txt:
-        txt = txt.readlines() 
-        for index in range(len(txt)): 
+        txt = txt.readlines()
+        for index in range(len(txt)):
             txt[index] = txt[index][0:n]
         for ngram in txt:
             i = 0
@@ -99,8 +99,8 @@ def addngramtod(d, txt, T=1, n=3):
                     if ngram_out in txt:
                         ngrams_out.append(out.index(ngram_out))
                         i += 1
-                    
-                break #think this should work.                         
+
+                break #think this should work.
         return ngram, idx_ngram
     "We also want to know which common english ngram gave at leat T commonenglish ngrams as output"
 
@@ -113,7 +113,7 @@ def isngram(str):
         if str in line:
             return True
     return False
-    
+
 def isenglishword(str):
     #Takes a string str and return True if that string is a word, False otherwise
     str = str.upper()
@@ -121,7 +121,7 @@ def isenglishword(str):
         dictionary = d.readlines()
     for line in dictionary:
         if str == line[0:-1]:
-            return True           
+            return True
     return False
 
 
@@ -140,7 +140,7 @@ def addwordtodatindex(d, word, index):
     #Takes a difference d, and adds word to d at index, returns a string with the new changed symbols.
     word_length = len(word)
     return add_modulo_alphabet(d[index:(index + word_length)], word)
-    
+
 def couldbeenglish(str1): # A function that takes a string and returns True if the string looks like english
     CAPITALS = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
     SPECIALS = ("!\"#$%'()*-/0123456789:;?@[]\n") #removed spacebar period and comma for acuracy. Not sure if newline will cause major issues.
@@ -206,7 +206,7 @@ def proofofconceptp1(dif1, dif2):
         if isngram(a[i]): #Check if ngram is an english ngram
             b[i] =  a[i] #filling the dic with the ngrams with their index as key
         i += 1
-    for key in b: #We'll now go through the english ngrams we found                
+    for key in b: #We'll now go through the english ngrams we found
         c = findwordswithsequence(b[key]) #would return english words with that ngram
         for word in c: #lets go through the words
             upper = b[key].upper()
@@ -232,10 +232,10 @@ def str_indexer(strng): #takes in a string and returns a list with the letters a
         temp_lst.append(letter)
         lst.append(temp_lst)
         index_position += 1
-    return lst 
-        
+    return lst
 
-def input_module(c1_c2, c2_c1, string1, string2):  
+
+def input_module(c1_c2, c2_c1, string1, string2):
     choice = input("Choose string to start from: (1/2)")
     user_index = eval(input('Enter index you want to start from: '))
     user_word = input('Enter word: ')
@@ -245,7 +245,7 @@ def input_module(c1_c2, c2_c1, string1, string2):
     if choice == '2':
         output_1 = add_modulo_alphabet(d[user_index:user_index+len(user_word)], user_word)
         output_2 = add_modulo_alphabet(e[user_index:user_index+len(user_word)], output_1)
-    
+
     return(replacer(output_1,  user_index, string1), replacer(output_2,  user_index, string2))
 
 def str_returner(lst): #takes in a str, indexed list from str_indexer, and returns a singles string
@@ -253,8 +253,8 @@ def str_returner(lst): #takes in a str, indexed list from str_indexer, and retur
     for i in range(len(lst)):
         new_list.append(lst[i][1])
     return ''.join(new_list)
-    
-def func_loop(string1, string2):# a function that allows for the continual guessing of the correct word. 
+
+def func_loop(string1, string2):# a function that allows for the continual guessing of the correct word.
     new_str1 = str_indexer(string1)
     new_str2 = str_indexer(string2)
     user_input ='yes'
@@ -276,4 +276,3 @@ def func_loop(string1, string2):# a function that allows for the continual guess
 
 
 #func_loop("hap-----------------", "----------------------")
-
