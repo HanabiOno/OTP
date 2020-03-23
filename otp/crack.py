@@ -107,7 +107,7 @@ def addngramtod(d, txt, T=1, n=3):
 def isngram(str):
     #Takes a string str and decides if str is an ngram.
     str = str.upper()
-    with open("../dictionary.txt", "rU") as d:
+    with open("../dictionary.txt", "r") as d:
         dictionary = d.readlines()
     for line in dictionary:
         if str in line:
@@ -117,7 +117,7 @@ def isngram(str):
 def isenglishword(str):
     #Takes a string str and return True if that string is a word, False otherwise
     str = str.upper()
-    with open("../dictionary.txt", "rU") as d:
+    with open("../dictionary.txt", "r") as d:
         dictionary = d.readlines()
     for line in dictionary:
         if str == line[0:-1]:
@@ -129,7 +129,7 @@ def findwordswithsequence(str):
     #Takes a string str and outputs a list with all words that contain str
     str = str.upper()
     words_with_str = []
-    with open("../dictionary.txt", "rU") as d:
+    with open("../dictionary.txt", "r") as d:
         dictionary = d.readlines()
     for line in dictionary:
         if str in line:
@@ -203,18 +203,15 @@ def proofofconceptp1(dif1, dif2):
     finalstring1 = "-" * finalstringlength #The finalstring of one of the cypher texts
     i = 0
     while i < len(a): #i is the current ngram we are checking
-        if isngram(a[i]): #A function that would check if the input is an english ngram
+        if isngram(a[i]): #Check if ngram is an english ngram
             b[i] =  a[i] #filling the dic with the ngrams with their index as key
         i += 1
-    for key in b: #We'll now go through the ngrams we found                
+    for key in b: #We'll now go through the english ngrams we found                
         c = findwordswithsequence(b[key]) #would return english words with that ngram
         for word in c: #lets go through the words
             upper = b[key].upper()
             wherengraminword = word.find(upper) #where in the word is ngram
             wordstartindex = key - wherengraminword #at what index should word start
-            if word == "HAPPY":
-                print(wherengraminword)
-                print(wordstartindex)
             d = addwordtodatindex(dif2, word, wordstartindex)
             if couldbeenglish(d) == True: #if the whole word makes sense we move on
                 finalstring1 = finalstring1[:wordstartindex -1] + word + finalstring1[wordstartindex + len(word):] #Change finalstring1 to contain the word we found
