@@ -52,6 +52,9 @@ class TestPM(unittest.TestCase):
     
     def test_replacer(self):
         self.assertEqual(replacer('fox', 4,[[0, 'T'], [1, 'h'], [2, 'e'], [3, ' '], [4, 'c'], [5, 'a'], [6, 't']]), [[0, 'T'], [1, 'h'], [2, 'e'], [3, ' '], [4, 'f'], [5, 'o'], [6, 'x']])
+
+def test_str_returner(self):
+        self.assertEqual(str_returner([[0, 'T'], [1, 'h'], [2, 'e'], [3, ' '], [4, 'c'], [5, 'a'], [6, 't']]), 'The cat')
         
 if __name__ == '__main__':
     unittest.main()

@@ -248,7 +248,7 @@ def input_module(c1_c2, c2_c1, string1, string2):
     
     return(replacer(output_1,  user_index, string1), replacer(output_2,  user_index, string2))
 
-def str_returner(lst):
+def str_returner(lst): #takes in a str, indexed list from str_indexer, and returns a singles string
     new_list = []
     for i in range(len(lst)):
         new_list.append(lst[i][1])
