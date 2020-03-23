@@ -252,8 +252,7 @@ def str_returner(lst):
     new_list = []
     for i in range(len(lst)):
         new_list.append(lst[i][1])
-    new_list = ''.join(new_list)
-    return new_list
+    return ''.join(new_list)
     
 def func_loop(string1, string2):# a function that allows for the continual guessing of the correct word. 
     new_str1 = str_indexer(string1)
