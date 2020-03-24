@@ -104,14 +104,25 @@ def addngramtod(d, txt, T=1, n=3):
         return ngram, idx_ngram
     "We also want to know which common english ngram gave at leat T commonenglish ngrams as output"
 
-def isngram(str):
-    #Takes a string str and decides if str is an ngram.
+def isngram(str, start = False, end = False):
+    #Takes a string str and booleans that decide if the ngram should be at a special location, and decides if str is an ngram.
     str = str.upper()
     with open("../dictionary.txt", "r") as d:
         dictionary = d.readlines()
     for line in dictionary:
-        if str in line:
-            return True
+        if start == True and len(line[:-1]) >= len(str):
+            if str == line[:len(str)]:
+                return True
+            else:
+                continue
+        elif end == True and len(line[:-1]) >= len(str):
+            if str == line[-1 - len(str):-1]:
+                return True
+            else:
+                continue
+        else:
+            if str in line:
+                return True
     return False
 
 def isenglishword(str):
@@ -143,8 +154,8 @@ def addwordtodatindex(d, word, index):
 
 def couldbeenglish(str1): # A function that takes a string and returns True if the string looks like english
     CAPITALS = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-    SPECIALS = ("!\"#$%'()*-/0123456789:;?@[]\n") #removed spacebar period and comma for acuracy. Not sure if newline will cause major issues.
-    OSPECIALS = (" .,")
+    SPECIALS = ("!\"#$%'()*-/0123456789:;?@[]/n") #removed spacebar for accuracy
+    OSPECIALS = (".,")
     LETTERS = ("abcdefghijklmnopqrstuvwxyz")
     i=0
     while i < len(str1) - 1:
@@ -156,11 +167,13 @@ def couldbeenglish(str1): # A function that takes a string and returns True if t
             return False
         elif str1[1] in LETTERS and str1[i+1] in CAPITALS:
             return False
+        elif str1[1] in OSPECIALS and str1[i+1] != " ":
+            return False
         i += 1
     indexofspecials = [] #list of the indexes of special symbols
     i=0
     while i < len(str1):
-        if str1[i] in SPECIALS or str1[i] in OSPECIALS:
+        if str1[i] in SPECIALS or str1[i] in OSPECIALS or str1[i] == " ":
             indexofspecials.append(i)
         i += 1
     if not indexofspecials: #if the list is empty
@@ -169,14 +182,14 @@ def couldbeenglish(str1): # A function that takes a string and returns True if t
     if 0 not in indexofspecials: #let's check the first symbols up to the first special
         tmpstring = str1[:indexofspecials[0]]
         if len(tmpstring) > 2:
-            if isngram(tmpstring) == False:
+            if isngram(tmpstring, end = True) == False:
                 return False
             else:
                 checkcount += 1
     if len(str1) - 1 not in indexofspecials: #let's check the symbols after the last special
         tmpstring = str1[indexofspecials[-1] + 1:]
         if len(tmpstring) > 2:
-            if isngram(tmpstring) == False:
+            if isngram(tmpstring, start = True) == False:
                 return False
             else:
                 checkcount += 1
