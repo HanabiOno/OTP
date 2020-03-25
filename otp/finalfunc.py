@@ -47,7 +47,7 @@ while j < 5:
         couldbeword = {} #safe all words that have english outcome and only use those with value 1, to be sure
         for trigram in trigrams:
             "current trigram to add to difference0"
-            cur_trigram = trigram[:3]
+            cur_trigram = trigram[:3].lower()
             "a will be the current trigram added to the difference at all possible places"
             a = addwordtod(difference0, cur_trigram)
             b = {} #dic we will use for english ngrams
