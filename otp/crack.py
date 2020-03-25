@@ -190,7 +190,7 @@ def couldbeenglish(str1): # A function that takes a string and returns True if t
     indexofspecials = [] #list of the indexes of special symbols
     i=0
     while i < len(str1):
-        if str1[i] in SPECIALS or str1[i] in ENDSPECIALS or str1[i] in QUOTES or str1[i] == " ":
+        if str1[i] in SPECIALS or str1[i] in ENDSPECIALS or str1[i] in QUOTES or str1[i] in BEFORESPECIALS or str1[i] == " ":
             indexofspecials.append(i)
         i += 1
     if not indexofspecials: #if the list is empty
