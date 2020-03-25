@@ -309,13 +309,17 @@ def func_loop(string1, string2):# a function that allows for the continual guess
 
 def cleanup (strng, index):
     counter = 1
-    while strng[index-counter][1] != '-':
-        strng[index-counter][1] = '-'
-        counter += 1
+    if (index-counter) >= 0: #makes sure word is not at the beginning of a sentence
+        while strng[index-counter][1] != '-':
+            strng[index-counter][1] = '-'
+            if index-counter > 0:
+                counter += 1
     counter_2 = index + 1
-    while strng[index+counter_2][1] != '-':
-        strng[index+counter_2][1] = '-'
-        counter_2 += 1
+    if index+counter_2 < (len(strng)-1): #makes sure word is not at the end of a sentence
+        while strng[index+counter_2][1] != '-':
+            strng[index+counter_2][1] = '-'
+            if index+counter_2 <= (len(strng)-1):
+                counter_2 += 1
         
     return strng
     

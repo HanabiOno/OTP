@@ -87,7 +87,9 @@ while j < 5:
                 for index in couldbeword:
                     print(couldbeword[index], 'isenglishword')
                     finalstring1 = replacer(couldbeword[index], index, finalstring1)
+                    finalstring1 = cleanup(finalstring1, index)
                     finalstring2 = replacer(addwordtodatindex(difference1, couldbeword[index], index), index, finalstring2)
+                    finalstring2 = cleanup(finalstring2, index)
                 print("How finalstring1 looks now:", str_returner(finalstring1))
                 print("How finalstring2 looks now:", str_returner(finalstring2))
                 print('end of loop nr:', j+1)
