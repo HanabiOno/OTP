@@ -144,6 +144,9 @@ def findwordswithsequence(str):
     for line in dictionary:
         if str in line:
             words_with_str.append(line[0:-1])
+    #including the str itself
+    if isenglishword(str) and (str not in words_with_str):
+        words_with_str.append(str)
     return words_with_str
 
 def addwordtodatindex(d, word, index):
