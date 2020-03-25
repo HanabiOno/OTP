@@ -156,7 +156,7 @@ def addwordtodatindex(d, word, index):
 
 def couldbeenglish(str1): # A function that takes a string and returns True if the string looks like english
     CAPITALS = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-    SPECIALS = ("#$%*/0123456789@/n") #removed spacebar for accuracy
+    SPECIALS = ("#$%*/0123456789@\n") #newline might cause issues
     BEFORESPECIALS = ("(-[")
     ENDSPECIALS = (".,!):;?]")
     QUOTES = ("\"'")
@@ -195,7 +195,7 @@ def couldbeenglish(str1): # A function that takes a string and returns True if t
     indexofspecials = [] #list of the indexes of special symbols
     i=0
     while i < len(str1):
-        if str1[i] in SPECIALS or str1[i] in ENDSPECIALS or str1[i] in QUOTES or str1[i] == " ":
+        if str1[i] in SPECIALS or str1[i] in ENDSPECIALS or str1[i] in QUOTES or str1[i] in BEFORESPECIALS or str1[i] == " ":
             indexofspecials.append(i)
         i += 1
     if not indexofspecials: #if the list is empty
@@ -309,13 +309,17 @@ def func_loop(string1, string2):# a function that allows for the continual guess
 
 def cleanup (strng, index):
     counter = 1
-    while strng[index-counter][1] != '-':
-        strng[index-counter][1] = '-'
-        counter += 1
+    if (index-counter) >= 0: #makes sure word is not at the beginning of a sentence
+        while strng[index-counter][1] != '-':
+            strng[index-counter][1] = '-'
+            if index-counter > 0:
+                counter += 1
     counter_2 = index + 1
-    while strng[index+counter_2][1] != '-':
-        strng[index+counter_2][1] = '-'
-        counter_2 += 1
+    if index+counter_2 < (len(strng)-1): #makes sure word is not at the end of a sentence
+        while strng[index+counter_2][1] != '-':
+            strng[index+counter_2][1] = '-'
+            if index+counter_2 <= (len(strng)-1):
+                counter_2 += 1
         
     return strng
     
