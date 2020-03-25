@@ -61,26 +61,25 @@ def helper(b, difference):
     return couldbeword2
 
 def helper2(couldbeworddict, d=difference1):
-    for idx in couldbeword:
-        startidx = idx #will be updated
-        endidx = idx + len(couldbeword[idx]) - 1 #will be updated
-        reversestring = addwordtodatindex(d, couldbeword[idx], idx) #will be updated
-        splitted = nltk.word_tokenize(reversestring)
-        print("splitted reversestring", splitted)
-        start = splitted[0]
-        end = splitted[-1]
-        startindex_end = endidx - len(end) +1
-        boundarywords = {}
-        boundarywords[idx] = start
-        boundarywords[startindex_end] = end
-        curdict={'empty':'dict'}
-        while curdict != {}:
+    curdict={'empty':'dict'}
+    while curdict != {}:
+        for idx in couldbeword:
+            startidx = idx #will be updated
+            endidx = idx + len(couldbeword[idx]) - 1 #will be updated
+            reversestring = addwordtodatindex(d, couldbeword[idx], idx) #will be updated
+            splitted = nltk.word_tokenize(reversestring)
+            print("splitted reversestring", splitted)
+            start = splitted[0]
+            end = splitted[-1]
+            startindex_end = endidx - len(end) +1
+            boundarywords = {}
+            boundarywords[idx] = start
+            boundarywords[startindex_end] = end
             curdict = helper(boundarywords, d)
             if d == difference1:
                 d = difference0
             else:
                 d = difference1
-            helper2(curdict, d)
             print('This is the outcome',boundarywords,helper(boundarywords, d))
 
 j = 0
