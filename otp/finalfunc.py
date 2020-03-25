@@ -13,7 +13,8 @@ from crack import(
     str_indexer,
     addwordtod,
     str_returner,
-    couldbeenglish
+    couldbeenglish,
+    cleanup,
 )
 
 with open("../cyphertext0.txt", "r") as cypher0:
@@ -81,6 +82,7 @@ while j < 5:
             if j%1 == 0:
                 print("These wordstartindices only have one option:", couldbeword)
                 finalstring1 = str_indexer('-'*len(difference0))
+                #finalstring1 = cleanup(finalstring1, index)
                 finalstring2 = str_indexer('-'*len(difference0))
                 for index in couldbeword:
                     print(couldbeword[index], 'isenglishword')

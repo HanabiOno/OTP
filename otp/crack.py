@@ -175,7 +175,7 @@ def couldbeenglish(str1): # A function that takes a string and returns True if t
             return False
         elif str1[i] in SPECIALS and str1[i+1] in CAPITALS:
             return False
-        elif str1[i] in SPECIALS and str1[i+1] in CAPITALS: 
+        elif str1[i] in SPECIALS and str1[i+1] in LETTERS: 
             return False
         elif str1[i] in SPECIALS and str1[i+1] in BEFORESPECIALS:
             return False
@@ -298,22 +298,27 @@ def func_loop(string1, string2):# a function that allows for the continual guess
         print('------------------------------------------------------------------------------')
         print(new_str2)
         temp1, temp2 = input_module(d, e, new_str1, new_str2)
-         print(str_returner(temp1))
+        print(str_returner(temp1))
         print('------------------------------------------------------------------------------')
-         print(str_returner(temp1))
+        print(str_returner(temp1))
         second_input = input('Do you want to keep this string?:')
         if second_input == 'yes' or second_input == 'yes ':
             new_str1 = temp1
             new_str2 = temp2
         user_input = input("Type yes if you want to continue")
 
-def cleanup (strng, index): #new
-    new_str = str_indexer(strng)
-    counter = 1
-    while new_str[index-counter][1] != '-':
-        new_str[index-counter][1] = '-'
+def cleanup (strng, index):
+     counter = 1
+    while strng[index-counter][1] != '-':
+        strng[index-counter][1] = '-'
         counter += 1
-    return return new_str
+    counter_2 = index + 1
+    while strng[index+counter_2][1] != '-':
+        strng[index+counter_2][1] = '-'
+        counter_2 += 1
+        
+    return strng
+    
 
 
 #func_loop("hap-----------------", "----------------------")
