@@ -175,6 +175,8 @@ def couldbeenglish(str1): # A function that takes a string and returns True if t
             return False
         elif str1[i] in SPECIALS and str1[i+1] in CAPITALS:
             return False
+        elif str1[i] in SPECIALS and str1[i+1] in CAPITALS: 
+            return False
         elif str1[i] in SPECIALS and str1[i+1] in BEFORESPECIALS:
             return False
         elif str1[i] in SPECIALS and str1[i+1] in ENDSPECIALS:
