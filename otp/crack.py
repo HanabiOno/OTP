@@ -293,9 +293,9 @@ def func_loop(string1, string2):# a function that allows for the continual guess
         print('------------------------------------------------------------------------------')
         print(new_str2)
         temp1, temp2 = input_module(d, e, new_str1, new_str2)
-        print(temp1)
+         print(str_returner(temp1))
         print('------------------------------------------------------------------------------')
-        print(temp2)
+         print(str_returner(temp1))
         second_input = input('Do you want to keep this string?:')
         if second_input == 'yes' or second_input == 'yes ':
             new_str1 = temp1
