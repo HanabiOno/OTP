@@ -308,7 +308,7 @@ def func_loop(string1, string2):# a function that allows for the continual guess
         user_input = input("Type yes if you want to continue")
 
 def cleanup (strng, index):
-     counter = 1
+    counter = 1
     while strng[index-counter][1] != '-':
         strng[index-counter][1] = '-'
         counter += 1
