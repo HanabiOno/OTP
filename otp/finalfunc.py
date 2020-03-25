@@ -13,7 +13,8 @@ from crack import(
     str_indexer,
     addwordtod,
     str_returner,
-    couldbeenglish
+    couldbeenglish,
+    cleanup,
 )
 
 with open("../cyphertext0.txt", "r") as cypher0:
@@ -28,6 +29,7 @@ plaintext1 = '-'*len(difference0)
 plaintext2 = '-'*len(difference0)
 
 finalstring1 = str_indexer('-'*len(difference0))
+finalstring2 = str_indexer('-'*len(difference0))
 
 '''
 # After fifty iterations/trigrams you get the following words
@@ -47,7 +49,7 @@ while j < 5:
         couldbeword = {} #safe all words that have english outcome and only use those with value 1, to be sure
         for trigram in trigrams:
             "current trigram to add to difference0"
-            cur_trigram = trigram[:3]
+            cur_trigram = trigram[:3].lower()
             "a will be the current trigram added to the difference at all possible places"
             a = addwordtod(difference0, cur_trigram)
             b = {} #dic we will use for english ngrams
@@ -66,6 +68,8 @@ while j < 5:
                     upper = b[key].upper()
                     wherengraminword = word.find(upper) #where in the word is ngram
                     wordstartindex = key - wherengraminword #at what index should word start
+                    if wordstartindex < 0:
+                        continue
                     d = addwordtodatindex(difference1, word, wordstartindex)
                     if couldbeenglish(d) == True: #if the word gives a english outcome it is good
                     # There are occurences where there are more then 1 couldbeenglish possibilities at the same wordstartindex
@@ -74,12 +78,19 @@ while j < 5:
                         if wordstartindex in couldbeword:
                             del couldbeword[wordstartindex]
                         else:
-                            couldbeword[wordstartindex] = [word]
+                            couldbeword[wordstartindex] = word
             if j%1 == 0:
                 print("These wordstartindices only have one option:", couldbeword)
                 finalstring1 = str_indexer('-'*len(difference0))
+                #finalstring1 = cleanup(finalstring1, index)
+                finalstring2 = str_indexer('-'*len(difference0))
                 for index in couldbeword:
+                    print(couldbeword[index], 'isenglishword')
                     finalstring1 = replacer(couldbeword[index], index, finalstring1)
-                print("How the finalstring looks now:", str_returner(finalstring1))
+                    finalstring1 = cleanup(finalstring1, index)
+                    finalstring2 = replacer(addwordtodatindex(difference1, couldbeword[index], index), index, finalstring2)
+                    finalstring2 = cleanup(finalstring2, index)
+                print("How finalstring1 looks now:", str_returner(finalstring1))
+                print("How finalstring2 looks now:", str_returner(finalstring2))
                 print('end of loop nr:', j+1)
             j += 1

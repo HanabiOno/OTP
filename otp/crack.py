@@ -144,6 +144,9 @@ def findwordswithsequence(str):
     for line in dictionary:
         if str in line:
             words_with_str.append(line[0:-1])
+    #including the str itself
+    if isenglishword(str) and (str not in words_with_str):
+        words_with_str.append(str)
     return words_with_str
 
 def addwordtodatindex(d, word, index):
@@ -171,6 +174,8 @@ def couldbeenglish(str1): # A function that takes a string and returns True if t
         elif str1[i] in CAPITALS and str1[i+1] in QUOTES:
             return False
         elif str1[i] in SPECIALS and str1[i+1] in CAPITALS:
+            return False
+        elif str1[i] in SPECIALS and str1[i+1] in LETTERS: 
             return False
         elif str1[i] in SPECIALS and str1[i+1] in BEFORESPECIALS:
             return False
@@ -293,16 +298,31 @@ def func_loop(string1, string2):# a function that allows for the continual guess
         print('------------------------------------------------------------------------------')
         print(new_str2)
         temp1, temp2 = input_module(d, e, new_str1, new_str2)
-        print(temp1)
+        print(str_returner(temp1))
         print('------------------------------------------------------------------------------')
-        print(temp2)
+        print(str_returner(temp1))
         second_input = input('Do you want to keep this string?:')
         if second_input == 'yes' or second_input == 'yes ':
             new_str1 = temp1
             new_str2 = temp2
         user_input = input("Type yes if you want to continue")
 
-
+def cleanup (strng, index):
+    counter = 1
+    if (index-counter) >= 0: #makes sure word is not at the beginning of a sentence
+        while strng[index-counter][1] != '-':
+            strng[index-counter][1] = '-'
+            if index-counter > 0:
+                counter += 1
+    counter_2 = index + 1
+    if index+counter_2 < (len(strng)-1): #makes sure word is not at the end of a sentence
+        while strng[index+counter_2][1] != '-':
+            strng[index+counter_2][1] = '-'
+            if index+counter_2 <= (len(strng)-1):
+                counter_2 += 1
+        
+    return strng
+    
 
 
 #func_loop("hap-----------------", "----------------------")
