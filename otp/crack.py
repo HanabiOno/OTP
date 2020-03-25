@@ -156,7 +156,7 @@ def addwordtodatindex(d, word, index):
 
 def couldbeenglish(str1): # A function that takes a string and returns True if the string looks like english
     CAPITALS = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-    SPECIALS = ("#$%*/0123456789@/n") #removed spacebar for accuracy
+    SPECIALS = ("#$%*/0123456789@\n") #newline might cause issues
     BEFORESPECIALS = ("(-[")
     ENDSPECIALS = (".,!):;?]")
     QUOTES = ("\"'")
