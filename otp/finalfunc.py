@@ -17,6 +17,8 @@ from crack import(
     cleanup,
 )
 
+import nltk
+
 with open("../cyphertext0.txt", "r") as cypher0:
     c0 = cypher0.read()
 with open("../cyphertext1.txt", "r") as cypher1:
@@ -31,16 +33,55 @@ plaintext2 = '-'*len(difference0)
 finalstring1 = str_indexer('-'*len(difference0))
 finalstring2 = str_indexer('-'*len(difference0))
 
-'''
-# After fifty iterations/trigrams you get the following words
-# keys are wordstartindex and values are the word
-fiftytrigrams = {94: ['UNSAFE'], 633: ['RATTY'], 658: ['VAINLY'], 943: ['RADIATE'], 949: ['DACTYL'], 260: ['YAK'], 374: ['BIZ'], 390: ['IDEA'], 407: ['STARTS'], 708: ['RE'], 790: ['YOGI'], 443: ['SHAFT'], 550: ['ILIAD'], 549: ['WILIER'], 100: ['AT'], 649: ['PA'], 106: ['WORDY'], 480: ['TORI'], 886: ['MANHUNTS'], 680: ['IT'], 141: ['IT'], 846: ['LYRA'], 53: ['SOS'], 125: ['EM'], 340: ['POACH'], 7: ['RHEA'], 758: ['IS'], 932: ['STUB'], 700: ['PA'], 488: ['BRITTLE'], 224: ['DO'], 299: ['BORAX']}
-for index in fiftytrigrams:
-    finalstring1 = replacer(fiftytrigrams[index], index, finalstring1)
-print(str_returner(finalstring1))
 
-finalstring1 = str_indexer('-'*len(difference0))
-'''
+def helper(b, difference):
+    '''This function will return a new dict with the differences the other way around'''
+    couldbeword2 = {} #safe all words that have english outcome and only use those with value 1, to be sure
+    for key in b: #We'll now go through the english ngrams we found
+        c = findwordswithsequence(b[key]) #would return english words with that ngram
+        d = []
+        for word in c:
+            if len(word)>5:
+                d.append(word)
+        for word in d: #lets go through the words
+            upper = b[key].upper()
+            wherengraminword = word.find(upper) #where in the word is ngram
+            wordstartindex = key - wherengraminword #at what index should word start
+            if wordstartindex < 0:
+                continue
+            dif = addwordtodatindex(difference, word, wordstartindex)
+            if couldbeenglish(dif) == True: #if the word gives a english outcome it is good
+            # There are occurences where there are more then 1 couldbeenglish possibilities at the same wordstartindex
+            # To make sure we have the right one, we only safe it when there is only 1 option
+                print(dif, 'wordofsequence is:', word)
+                if wordstartindex in couldbeword2:
+                    del couldbeword2[wordstartindex]
+                else:
+                    couldbeword2[wordstartindex] = word
+    return couldbeword2
+
+def helper2(couldbeworddict, d=difference1):
+    for idx in couldbeword:
+        startidx = idx #will be updated
+        endidx = idx + len(couldbeword[idx]) - 1 #will be updated
+        reversestring = addwordtodatindex(d, couldbeword[idx], idx) #will be updated
+        splitted = nltk.word_tokenize(reversestring)
+        print("splitted reversestring", splitted)
+        start = splitted[0]
+        end = splitted[-1]
+        startindex_end = endidx - len(end) +1
+        boundarywords = {}
+        boundarywords[idx] = start
+        boundarywords[startindex_end] = end
+        curdict={'empty':'dict'}
+        while curdict != {}:
+            curdict = helper(boundarywords, d)
+            if d == difference1:
+                d = difference0
+            else:
+                d = difference1
+            helper2(curdict, d)
+            print('This is the outcome',boundarywords,helper(boundarywords, d))
 
 j = 0
 while j < 5:
@@ -62,33 +103,31 @@ while j < 5:
             print('Commong english ngrams after addition',cur_trigram,'to difference0 (keys are index):')
             print(b)
             print("Following passes couldbeenglish after addition findwordswithsequence(commong eng ngram above) to difference1:")
-            for key in b: #We'll now go through the english ngrams we found
-                c = findwordswithsequence(b[key]) #would return english words with that ngram
-                for word in c: #lets go through the words
-                    upper = b[key].upper()
-                    wherengraminword = word.find(upper) #where in the word is ngram
-                    wordstartindex = key - wherengraminword #at what index should word start
-                    if wordstartindex < 0:
-                        continue
-                    d = addwordtodatindex(difference1, word, wordstartindex)
-                    if couldbeenglish(d) == True: #if the word gives a english outcome it is good
-                    # There are occurences where there are more then 1 couldbeenglish possibilities at the same wordstartindex
-                    # To make sure we have the right one, we only safe it when there is only 1 option
-                        print(d, 'wordofsequence is:', word)
-                        if wordstartindex in couldbeword:
-                            del couldbeword[wordstartindex]
-                        else:
-                            couldbeword[wordstartindex] = word
+
+            couldbeword2 = helper(b, difference1)
+            for key in couldbeword2:
+                couldbeword[key]=couldbeword2[key]
+
             if j%1 == 0:
                 print("These wordstartindices only have one option:", couldbeword)
                 finalstring1 = str_indexer('-'*len(difference0))
                 #finalstring1 = cleanup(finalstring1, index)
                 finalstring2 = str_indexer('-'*len(difference0))
                 for index in couldbeword:
-                    print(couldbeword[index], 'isenglishword')
                     finalstring1 = replacer(couldbeword[index], index, finalstring1)
                     finalstring2 = replacer(addwordtodatindex(difference1, couldbeword[index], index), index, finalstring2)
                 print("How finalstring1 looks now:", str_returner(finalstring1))
                 print("How finalstring2 looks now:", str_returner(finalstring2))
-                print('end of loop nr:', j+1)
+
+            helper2(couldbeword)
+            print('end of loop nr:', j+1)
             j += 1
+
+
+btest = {318: 'the', 323: 'i'}
+btest2 = {381: 'dfather'}
+print(helper(btest, difference1))
+print(helper(btest2, difference1))
+
+print(addwordtodatindex(difference0, "dfather", 381))
+print(couldbeenglish('intervi'))
