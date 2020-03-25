@@ -156,46 +156,150 @@ def addwordtodatindex(d, word, index):
 
 def couldbeenglish(str1): # A function that takes a string and returns True if the string looks like english
     CAPITALS = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-    SPECIALS = ("#$%*/0123456789@\n") #newline might cause issues
-    BEFORESPECIALS = ("(-[")
-    ENDSPECIALS = (".,!):;?]")
+    IGNORED = ("%$#*/@")#No functionality for these symbols
+    NUMBERS = ("0123456789")
+    OPENERS = ("([")
+    CLOSERS = (")]")
+    ENDSPECIALS = (".,!:;?")
+    CONNECTORS = ("-")
     QUOTES = ("\"'")
+    BREAKS = (" \n")
     LETTERS = ("abcdefghijklmnopqrstuvwxyz")
     i=0
-    while i < len(str1) - 1:
-        if str1[i] in CAPITALS and str1[i+1] in CAPITALS:
-            return False
-        elif str1[i] in CAPITALS and str1[i+1] in SPECIALS:
-            return False
-        elif str1[i] in CAPITALS and str1[i+1] in BEFORESPECIALS:
-            return False
-        elif str1[i] in CAPITALS and str1[i+1] in ENDSPECIALS:
-            return False
-        elif str1[i] in CAPITALS and str1[i+1] in QUOTES:
-            return False
-        elif str1[i] in SPECIALS and str1[i+1] in CAPITALS:
-            return False
-        elif str1[i] in SPECIALS and str1[i+1] in LETTERS: 
-            return False
-        elif str1[i] in SPECIALS and str1[i+1] in BEFORESPECIALS:
-            return False
-        elif str1[i] in SPECIALS and str1[i+1] in ENDSPECIALS:
-            return False
-        elif str1[i] in BEFORESPECIALS and str1[i+1] in SPECIALS:
-            return False
-        elif str1[i] in BEFORESPECIALS and str1[i+1] in ENDSPECIALS:
-            return False
-        elif str1[i] in LETTERS and str1[i+1] in CAPITALS:
-            return False
-        elif str1[i] in LETTERS and str1[i+1] in SPECIALS:
-            return False
-        elif str1[i] in ENDSPECIALS and str1[i+1] != " ":
+    while i < len(str1):
+        if str1[i] in IGNORED:
             return False
         i += 1
+    i=0
+    while i < len(str1) - 1:
+        if str1[i] in CAPITALS and str1[i+1] not in LETTERS:
+            return False
+        elif str1[i+1] in CAPITALS:
+            if str1[i] in OPENERS:
+                i += 1
+                continue
+            elif str1[i] in QUOTES:
+                i += 1
+                continue
+            elif str1[i] in BREAKS:
+                i += 1
+                continue
+            else:
+                return False
+        elif str1[i] in NUMBERS:
+            if str1[i+1] in OPENERS:
+                return False
+            elif str1[i+1] in CONNECTORS:
+                return False
+            elif str1[i+1] in LETTERS:
+                return False
+        elif str1[i+1] in NUMBERS:
+            if str1[i] in CLOSERS:
+                return False
+            elif str1[i] in ENDSPECIALS:
+                return False
+            elif str1[i] in CONNECTORS:
+                return False
+            elif str1[i] in LETTERS:
+                return False
+        elif str1[i] in OPENERS:
+            if str1[i+1] in OPENERS:
+                return False
+            elif str1[i+1] in CLOSERS:
+                return False
+            elif str1[i+1] in ENDSPECIALS:
+                return False
+            elif str1[i+1] in CONNECTORS:
+                return False
+            elif str1[i+1] in BREAKS:
+                return False
+        elif str1[i+1] in OPENERS and str1[i] not in BREAKS:
+            return False
+        elif str1[i] in CLOSERS:
+            if str1[i+1] in CLOSERS:
+                return False
+            elif str1[i+1] in CONNECTORS:
+                return False
+            elif str1[i+1] in QUOTES:
+                return False
+            elif str1[i+1] in LETTERS:
+                return False
+        elif str1[i+1] in CLOSERS:
+            if str1[1] in CONNECTORS:
+                return False
+            elif str1[1] in BREAKS:
+                return False
+        elif str1[i] in ENDSPECIALS:
+            if str1[i+1] in ENDSPECIALS:
+                return False
+            elif str1[i+1] in CONNECTORS:
+                return False
+            elif str1[i+1] in LETTERS:
+                return False
+        elif str1[i+1] in ENDSPECIALS:
+            if str1[i] in CONNECTORS:
+                return False
+            elif str1[i] in QUOTES:
+                return False
+            elif str1[i] in BREAKS:
+                return False
+        elif str1[i] in CONNECTORS and str1[i+1] not in LETTERS:
+            return False
+        elif str1[i+1] in CONNECTORS and str1[i] not in LETTERS:
+            return False
+        elif str1[i] in QUOTES and str1[i+1] in QUOTES:
+            return False
+        elif str1[i] in BREAKS and str1[i+1] in BREAKS:
+            return False
+        i += 1 
+    i=0
+    while i < len(str1) - 2:
+        if str1[i+1] in NUMBERS and str1[i] in OPENERS and str1[i+2] in QUOTES:
+            return False
+        elif str1[i+1] in NUMBERS and str1[i] in QUOTES and str1[i+2] in CLOSERS:
+            return False
+        elif str1[i+1] in QUOTES:
+            if str1[i] in OPENERS:
+                if str1[i+2] in CLOSERS:
+                    return False
+                elif str1[i+2] in BREAKS:
+                    return False
+            elif str1[i] in ENDSPECIALS:
+                if str1[i+2] in CAPITALS:
+                    return False
+                elif str1[i+2] in LETTERS:
+                    return False
+                elif str1[i+2] in NUMBERS:
+                    return False
+            elif str1[i] in NUMBERS or str1[i] in LETTERS:
+                if str1[i+2] in CAPITALS:
+                    return False
+                elif str1[i+2] in NUMBERS:
+                    return False
+                elif str1[i+2] in LETTERS:
+                    return False
+        elif str1[i+1] in BREAKS and str1[i] in LETTERS and str1[i+2] in CAPITALS:
+            return False
+        elif str1[i+1] in LETTERS:
+            if str1[i] in CAPITALS:
+                if str1[i+2] in CLOSERS or str1[i+2] in ENDSPECIALS or str1[i+2] in QUOTES or str1[i+2] in BREAKS:
+                    if isenglishword(str1[i:i+1]) == False:
+                        return False
+            elif str1[i] in OPENERS or str1[i] in QUOTES:
+                if str1[i+2] in CLOSERS or str1[i+2] in ENDSPECIALS or str1[i+2] in QUOTES:
+                    return False
+                elif str1[i+2] in BREAKS:
+                    if isenglishword(str1[i+1]) == False:
+                        return False
+            elif str1[i] in BREAKS:
+                if str1[i+2] in CLOSERS or str1[i+2] in ENDSPECIALS or str1[i+2] in QUOTES or str1[i+2] in BREAKS:
+                    if isenglishword(str1[i+1]) == False:
+                        return False
+        i += 1    
     indexofspecials = [] #list of the indexes of special symbols
     i=0
     while i < len(str1):
-        if str1[i] in SPECIALS or str1[i] in ENDSPECIALS or str1[i] in QUOTES or str1[i] in BEFORESPECIALS or str1[i] == " ":
+        if str1[i] in IGNORED or str1[i] in NUMBERS or str1[i] in OPENERS or str1[i] in CLOSERS or str1[i] in ENDSPECIALS or str1[i] in CONNECTORS or str1[i] in QUOTES or str1[i] in BREAKS:
             indexofspecials.append(i)
         i += 1
     if not indexofspecials: #if the list is empty
