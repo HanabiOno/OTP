@@ -31,7 +31,7 @@ finalstring1 = str_indexer('-'*len(difference0))
 
 # After fifty iterations/trigrams you get the following words
 # keys are wordstartindex and values are the word
-fitytrigrams = {94: ['UNSAFE'], 633: ['RATTY'], 658: ['VAINLY'], 943: ['RADIATE'], 949: ['DACTYL'], 260: ['YAK'], 374: ['BIZ'], 390: ['IDEA'], 407: ['STARTS'], 708: ['RE'], 790: ['YOGI'], 443: ['SHAFT'], 550: ['ILIAD'], 549: ['WILIER'], 100: ['AT'], 649: ['PA'], 106: ['WORDY'], 480: ['TORI'], 886: ['MANHUNTS'], 680: ['IT'], 141: ['IT'], 846: ['LYRA'], 53: ['SOS'], 125: ['EM'], 340: ['POACH'], 7: ['RHEA'], 758: ['IS'], 932: ['STUB'], 700: ['PA'], 488: ['BRITTLE'], 224: ['DO'], 299: ['BORAX']}
+fiftytrigrams = {94: ['UNSAFE'], 633: ['RATTY'], 658: ['VAINLY'], 943: ['RADIATE'], 949: ['DACTYL'], 260: ['YAK'], 374: ['BIZ'], 390: ['IDEA'], 407: ['STARTS'], 708: ['RE'], 790: ['YOGI'], 443: ['SHAFT'], 550: ['ILIAD'], 549: ['WILIER'], 100: ['AT'], 649: ['PA'], 106: ['WORDY'], 480: ['TORI'], 886: ['MANHUNTS'], 680: ['IT'], 141: ['IT'], 846: ['LYRA'], 53: ['SOS'], 125: ['EM'], 340: ['POACH'], 7: ['RHEA'], 758: ['IS'], 932: ['STUB'], 700: ['PA'], 488: ['BRITTLE'], 224: ['DO'], 299: ['BORAX']}
 for index in fiftytrigrams:
     finalstring1 = replacer(fiftytrigrams[index], index, finalstring1)
 print(str_returner(finalstring1))
