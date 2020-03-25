@@ -28,6 +28,7 @@ plaintext1 = '-'*len(difference0)
 plaintext2 = '-'*len(difference0)
 
 finalstring1 = str_indexer('-'*len(difference0))
+finalstring2 = str_indexer('-'*len(difference0))
 
 '''
 # After fifty iterations/trigrams you get the following words
@@ -80,12 +81,12 @@ while j < 5:
             if j%1 == 0:
                 print("These wordstartindices only have one option:", couldbeword)
                 finalstring1 = str_indexer('-'*len(difference0))
+                finalstring2 = str_indexer('-'*len(difference0))
                 for index in couldbeword:
-                    if isenglishword(couldbeword[index]):
-                        print(couldbeword[index], 'isenglishword')
-                        finalstring1 = replacer(couldbeword[index], index, finalstring1)
-                    else:
-                        continue
-                print("How the finalstring looks now:", str_returner(finalstring1))
+                    print(couldbeword[index], 'isenglishword')
+                    finalstring1 = replacer(couldbeword[index], index, finalstring1)
+                    finalstring2 = replacer(addwordtodatindex(difference1, couldbeword[index], index), index, finalstring2)
+                print("How finalstring1 looks now:", str_returner(finalstring1))
+                print("How finalstring2 looks now:", str_returner(finalstring2))
                 print('end of loop nr:', j+1)
             j += 1
