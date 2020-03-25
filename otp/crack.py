@@ -1,4 +1,3 @@
-
 # A first hint at how one might go about cracking the codes.
 
 from otp import (
@@ -154,26 +153,44 @@ def addwordtodatindex(d, word, index):
 
 def couldbeenglish(str1): # A function that takes a string and returns True if the string looks like english
     CAPITALS = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-    SPECIALS = ("!\"#$%'()*-/0123456789:;?@[]/n") #removed spacebar for accuracy
-    OSPECIALS = (".,")
+    SPECIALS = ("#$%*/0123456789@/n") #removed spacebar for accuracy
+    BEFORESPECIALS = ("(-[")
+    ENDSPECIALS = (".,!):;?]")
+    QUOTES = ("\"'")
     LETTERS = ("abcdefghijklmnopqrstuvwxyz")
     i=0
     while i < len(str1) - 1:
         if str1[i] in CAPITALS and str1[i+1] in CAPITALS:
             return False
-        elif str1[i] in SPECIALS and str1[i+1] in SPECIALS:
-            return False
         elif str1[i] in CAPITALS and str1[i+1] in SPECIALS:
             return False
-        elif str1[1] in LETTERS and str1[i+1] in CAPITALS:
+        elif str1[i] in CAPITALS and str1[i+1] in BEFORESPECIALS:
             return False
-        elif str1[1] in OSPECIALS and str1[i+1] != " ":
+        elif str1[i] in CAPITALS and str1[i+1] in ENDSPECIALS:
+            return False
+        elif str1[i] in CAPITALS and str1[i+1] in QUOTES:
+            return False
+        elif str1[i] in SPECIALS and str1[i+1] in CAPITALS:
+            return False
+        elif str1[i] in SPECIALS and str1[i+1] in BEFORESPECIALS:
+            return False
+        elif str1[i] in SPECIALS and str1[i+1] in ENDSPECIALS:
+            return False
+        elif str1[i] in BEFORESPECIALS and str1[i+1] in SPECIALS:
+            return False
+        elif str1[i] in BEFORESPECIALS and str1[i+1] in ENDSPECIALS:
+            return False
+        elif str1[i] in LETTERS and str1[i+1] in CAPITALS:
+            return False
+        elif str1[i] in LETTERS and str1[i+1] in SPECIALS:
+            return False
+        elif str1[i] in ENDSPECIALS and str1[i+1] != " ":
             return False
         i += 1
     indexofspecials = [] #list of the indexes of special symbols
     i=0
     while i < len(str1):
-        if str1[i] in SPECIALS or str1[i] in OSPECIALS or str1[i] == " ":
+        if str1[i] in SPECIALS or str1[i] in ENDSPECIALS or str1[i] in QUOTES or str1[i] == " ":
             indexofspecials.append(i)
         i += 1
     if not indexofspecials: #if the list is empty
