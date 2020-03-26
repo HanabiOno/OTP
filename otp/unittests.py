@@ -68,7 +68,7 @@ class TestPM(unittest.TestCase):
         self.assertEqual(str_returner(lst), 'The cat')
         
     def test_collision_finder(self): 
-        self.assertEqual(collision_finder(lst, 'fox', 3), [True, 3])
+        self.assertEqual(collision_finder(lst, 'fox', 3), [True, 4])
 
     def test_couldbeenglish_good(self):
         self.assertEqual(couldbeenglish("ing, wi", simple = True), True)
