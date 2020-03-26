@@ -388,20 +388,21 @@ def func_loop(string1, string2):
             new_str2 = temp2
         user_input = input("Type yes if you want to continue")
 
-def cleanup (strng, index):#if collisions occur in the list, it removes the undesired letters. 
+def cleanup (lst, index):
+    #if collisions occur in the list, it removes the undesired letters. 
     counter = 0
     if (index-counter) > 0: #makes sure word is not at the beginning of a sentence
-        while strng[index-counter][1] != '-':
-            strng[index-counter][1] = '-'
+        while lst[index-counter][1] != '-':
+            lst[index-counter][1] = '-'
             if index-counter > 0:
                 counter += 1
     counter_2 = index + 1
-    if counter_2 < (len(strng)-1): #makes sure word is not at the end of a sentence
-        while strng[counter_2][1] != '-':
-            strng[counter_2][1] = '-'
+    if counter_2 < (len(lst)-1): #makes sure word is not at the end of a sentence
+        while lst[counter_2][1] != '-':
+            lst[counter_2][1] = '-'
             if index+counter_2 <= (len(strng)-1):
                 counter_2 += 1        
-    return strng
+    return lst
 
 def pop_dict_creator(book_list, popularity_dict):
     #Takes a list of books and makes a dictionary of the words in these books
