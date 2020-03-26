@@ -329,16 +329,16 @@ def func_loop(string1, string2):
         user_input = input("Type yes if you want to continue")
 
 def cleanup (strng, index):
-    counter = 1
-    if (index-counter) >= 0: #makes sure word is not at the beginning of a sentence
+    counter = 0
+    if (index-counter) > 0: #makes sure word is not at the beginning of a sentence
         while strng[index-counter][1] != '-':
             strng[index-counter][1] = '-'
             if index-counter > 0:
                 counter += 1
     counter_2 = index + 1
-    if index+counter_2 < (len(strng)-1): #makes sure word is not at the end of a sentence
-        while strng[index+counter_2][1] != '-':
-            strng[index+counter_2][1] = '-'
+    if counter_2 < (len(strng)-1): #makes sure word is not at the end of a sentence
+        while strng[counter_2][1] != '-':
+            strng[counter_2][1] = '-'
             if index+counter_2 <= (len(strng)-1):
                 counter_2 += 1        
     return strng
@@ -404,19 +404,21 @@ def lst_replacer (finalstring, couldbeword, index, pop_dict):
         if collision_finder(finalstring, couldbeword, index)[1] > index:
             collisionword = str_returner_word(finalstring, collision_finder(finalstring, couldbeword, index)[1])
             word = chooser(couldbeword, collisionword, pop_dict)
-            if word == couldbeword: 
+            if word == couldbeword:
+                finalstring = cleanup(finalstring, collision_finder(finalstring, couldbeword, index)[1])
                 finalstring = replacer(word, index, finalstring)
-                finalstring = cleanup(finalstring, index)
+        
         else:
             start_index = finder(finalstring, index)
             collisionword = str_returner_word(finalstring, start_index)
             word = chooser(couldbeword, collisionword, pop_dict)
             if word == couldbeword:
+                finalstring = cleanup(finalstring, start_index)
                 finalstring = replacer(word, index, finalstring)
                 finalstring = cleanup(finalstring, index)
         return finalstring    
     else:
-        finalstring = replacer(word, index, finalstring)
+        finalstring = replacer(couldbeword, index, finalstring)
         return finalstring
     
     
