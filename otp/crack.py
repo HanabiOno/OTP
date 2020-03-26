@@ -392,13 +392,13 @@ def cleanup (lst, index):
     #if collisions occur in the list, it removes the undesired letters. 
     counter = 0
     if (index-counter) > 0: #makes sure word is not at the beginning of a sentence
-        while lst[index-counter][1] != '-':
+        while lst[index-counter][1] != '-' and strng[index-counter][1] != ' '::
             lst[index-counter][1] = '-'
             if index-counter > 0:
                 counter += 1
     counter_2 = index + 1
     if counter_2 < (len(lst)-1): #makes sure word is not at the end of a sentence
-        while lst[counter_2][1] != '-':
+        while lst[counter_2][1] != '-' and strng[counter_2][1] != ' ':
             lst[counter_2][1] = '-'
             if index+counter_2 <= (len(strng)-1):
                 counter_2 += 1        
@@ -423,7 +423,7 @@ def str_returner_word(lst, index_start):
     #from a given index in our list, returns it as a string. 
     new_list = []
     counter = 0
-    while lst[index_start+counter][1] != '-':
+    while lst[index_start+counter][1] != '-' and lst[index_start+counter][1] != ' ':
         new_list.append(lst[index_start+counter][1])
         counter += 1
     return ''.join(new_list)
@@ -450,16 +450,16 @@ def chooser(word1, word2, pop_dict):
 def finder(lst, index):
     #finds beginning index of a string
     counter = 1
-    while lst[index-counter][1] != '-':
+    while lst[index-counter][1] != '-' and lst[index-counter][1] != ' ':
         counter += 1
     return (index-counter + 1)
 
 def collision_finder(lst, word, index):
     #find collisions between words (if they have the same index)
-    if lst[index][1] != '-':
+    if lst[index][1] != '-' and lst[index][1] != ' ':
         return ([True, index])
     for i in range(len(word)):
-        if lst[index+i+1][1] != '-':
+        if lst[index+i+1][1] != '-' and lst[index+i+1][1] != ' ':
             return [True, index+i+1]
     return [False, 'None']
 
