@@ -300,7 +300,6 @@ def str_indexer(strng):
 
 
 def input_module(c1_c2, c2_c1, string1, string2):
->>>>>>> 465e1fdf13137a943d565126134a1f42d5fa9dce
     choice = input("Choose string to start from: (1/2)")
     user_index = eval(input('Enter index you want to start from: '))
     user_word = input('Enter word: ')
