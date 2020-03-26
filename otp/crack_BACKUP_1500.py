@@ -80,7 +80,7 @@ def addwordtodatindex(d, word, index):
     word_length = len(word)
     return add_modulo_alphabet(d[index:(index + word_length)], word)
 
-def couldbeenglish(str1, simple = True):
+def couldbeenglish(str1, simple = False):
     #A function that takes a string and returns True if the string looks like english
     CAPITALS = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
     IGNORED = ("%$#*/@")#No functionality for these symbols
@@ -297,10 +297,12 @@ def str_indexer(strng):
         index_position += 1
     return lst
 
+<<<<<<< HEAD
 
-
+def input_module(c1_c2, c2_c1, string1, string2):#allows for user testing of the string
+=======
 def input_module(c1_c2, c2_c1, string1, string2):
-    #allows for manual input
+>>>>>>> 0aa52461e7f3fb06e7bfd52f0340e82bcbc3f3e4
     choice = input("Choose string to start from: (1/2)")
     user_index = eval(input('Enter index you want to start from: '))
     user_word = input('Enter word: ')
@@ -368,8 +370,8 @@ def pop_dict_creator(book_list, popularity_dict):
                         popularity_dict[word] += 1
     return popularity_dict
     
-def str_returner_word(lst, index_start):
-    #from a given index in our list, returns it as a string. 
+def str_returner_word(lst, index_start):#from a given index in our list, returns it as a string. 
+
     new_list = []
     counter = 0
     while lst[index_start+counter][1] != '-':
@@ -377,8 +379,7 @@ def str_returner_word(lst, index_start):
         counter += 1
     return ''.join(new_list)
             
-def chooser(word1, word2, pop_dict):
-    #given two words, decideds which word to keep. 
+def chooser(word1, word2, pop_dict):#given two words, decideds which word to keep. 
     temp1 = word1.lower()
     temp2 = word2.lower()
     if temp1 in pop_dict and temp2 in pop_dict:
@@ -403,8 +404,7 @@ def finder(lst, index):
         counter += 1
     return (index-counter + 1)
 
-def collision_finder(lst, word, index):
-    #find collisions between words (if they have the same index)
+def collision_finder(lst, word, index): #find collisions between words (if they have the same index)
     if lst[index][1] != '-':
         return ([True, index])
     for i in range(len(word)):
@@ -412,9 +412,13 @@ def collision_finder(lst, word, index):
             return [True, index+i+1]
     return [False, 'None']
 
+<<<<<<< HEAD
 
+
+def lst_replacer (finalstring, couldbeword, index, pop_dict): #adds a new word to our string and resolves any collisions that would occur
+=======
 def lst_replacer (finalstring, couldbeword, index, pop_dict):
-    #adds a new word to our string and resolves any collisions that would occur
+>>>>>>> 0aa52461e7f3fb06e7bfd52f0340e82bcbc3f3e4
     if collision_finder(finalstring, couldbeword, index)[0] == True:
         if collision_finder(finalstring, couldbeword, index)[1] > index:
             collisionword = str_returner_word(finalstring, collision_finder(finalstring, couldbeword, index)[1])
