@@ -7,7 +7,7 @@ Input: Two cyphertexts, encrypted with the same otp
 
 Output: The book where the two encrypted passages are from
 
-Functions still needed:
+Library required: NLTK
 
 
 
