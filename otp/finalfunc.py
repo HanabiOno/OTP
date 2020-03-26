@@ -80,12 +80,18 @@ def helper(b, difference):
     return couldbeword2
 
 def helper2(couldbeworddict, d=difference0):
-    curdict={'empty':'dict'}
-    while curdict != {}:
-        for idx in couldbeword:
+    curdict = couldbeword
+    nextdict = curdict
+    while nextdict != {}:
+        for idx in curdict:
+            if d == difference1:
+                d = difference0
+            else:
+                d = difference1
             startidx = idx #will be updated
             endidx = idx + len(couldbeword[idx]) - 1 #will be updated
             reversestring = addwordtodatindex(d, couldbeword[idx], idx) #will be updated
+            print(couldbeword[idx], d == difference0, idx)
             splitted = nltk.word_tokenize(reversestring)
             print("splitted reversestring", splitted)
             start = splitted[0]
@@ -94,12 +100,24 @@ def helper2(couldbeworddict, d=difference0):
             boundarywords = {}
             boundarywords[idx] = start
             boundarywords[startindex_end] = end
-            curdict = helper(boundarywords, d)
             if d == difference1:
                 d = difference0
             else:
                 d = difference1
-            print('This is the outcome',boundarywords,helper(boundarywords, d))
+            nextdict = helper(boundarywords, d)
+            print('This is the outcome', nextdict)
+            if nextdict != {}:
+                helper2(nextdict,d)
+            elif nextdict == {}:
+                removekeys = []
+                #Remove couldbeenglish words if their sequences don't give good outcomes
+                for key in boundarywords:
+                    if isenglishword(boundarywords[key]):
+                        continue
+                    else:
+                        removekeys.append(key)
+                for key in removekeys:
+                    del boundarywords[key]
 
 j = 0
 while j < 5:
@@ -143,8 +161,9 @@ while j < 5:
             print('end of loop nr:', j+1)
             j += 1
 
+
 #btest = {318: 'the', 323: 'i'}
-#btest2 = {381: 'dfather'}
+#btest2 = {823: 'thereb'}
 #print(helper(btest, difference1))
 #print(helper(btest2, difference0))
 
