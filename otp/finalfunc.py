@@ -49,7 +49,11 @@ def helper(b, difference):
             wordstartindex = key - wherengraminword #at what index should word start
             if wordstartindex < 0:
                 continue
+            word = word.lower()
             dif = addwordtodatindex(difference, word, wordstartindex)
+            #print("---------------------------------------------")
+            #print("word:", word, "dif:", dif , "index:", wordstartindex)
+            #print("word at index:", difference0[wordstartindex:wordstartindex+len(word)])
             if couldbeenglish(dif) == True: #if the word gives a english outcome it is good
             # There are occurences where there are more then 1 couldbeenglish possibilities at the same wordstartindex
             # To make sure we have the right one, we only safe it when there is only 1 option
@@ -60,7 +64,7 @@ def helper(b, difference):
                     couldbeword2[wordstartindex] = word
     return couldbeword2
 
-def helper2(couldbeworddict, d=difference1):
+def helper2(couldbeworddict, d=difference0):
     curdict={'empty':'dict'}
     while curdict != {}:
         for idx in couldbeword:
@@ -124,11 +128,13 @@ while j < 5:
             print('end of loop nr:', j+1)
             j += 1
 
+#btest = {318: 'the', 323: 'i'}
+#btest2 = {381: 'dfather'}
+#print(helper(btest, difference1))
+#print(helper(btest2, difference0))
 
-btest = {318: 'the', 323: 'i'}
-btest2 = {381: 'dfather'}
-print(helper(btest, difference1))
-print(helper(btest2, difference1))
+#print("addswordtoatidx, dif:", addwordtodatindex(difference0, "dfather", 381))
+#print("This part!", difference0[381:388])
 
-print(addwordtodatindex(difference0, "dfather", 381))
-print(couldbeenglish('intervi'))
+#print("addswordtoatidx, dif:", addwordtodatindex(difference0, "greatgrandfather", 377))
+#print("This part!", difference0[377:388])
