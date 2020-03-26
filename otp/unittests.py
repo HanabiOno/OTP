@@ -91,10 +91,10 @@ class TestPM(unittest.TestCase):
     def test_finder(self):
         self.assertEqual(finder(lst, 4), 4)
         
-     def test_chooser(self): 
+    def test_chooser1(self): 
         self.assertEqual(chooser('hello', 'interview', popularity_dict), 'interview')
     
-    def test_chooser(self): 
+    def test_chooser2(self): 
         self.assertEqual(chooser('johannesburg', 'neuroscience', popularity_dict), 'neuroscience')
 
 
