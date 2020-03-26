@@ -20,6 +20,7 @@ from crack import(
 )
 
 import nltk
+nltk.download('punkt')
 
 with open("../cyphertext0.txt", "r") as cypher0:
     c0 = cypher0.read()
