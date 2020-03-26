@@ -17,6 +17,7 @@ from crack import(
     couldbeenglish,
     cleanup,
     pop_dict_creator,
+    lst_replacer,
 )
 
 import nltk
@@ -130,13 +131,14 @@ while j < 5:
             if j%1 == 0:
                 print("These wordstartindices only have one option:", couldbeword)
                 finalstring1 = str_indexer('-'*len(difference0))
-                #finalstring1 = cleanup(finalstring1, index)
                 finalstring2 = str_indexer('-'*len(difference0))
                 for index in couldbeword:
-                    finalstring1 = replacer(couldbeword[index], index, finalstring1)
-                    finalstring1 = cleanup(finalstring1, index)
-                    finalstring2 = replacer(addwordtodatindex(difference1, couldbeword[index], index), index, finalstring2)
-                    finalstring2 = cleanup(finalstring2, index)
+                    finalstring1 = lst_replacer (finalstring1, couldbeword[index], index, popularity_dict)
+                    finalstring2 = lst_replacer (finalstring2, couldbeword[index], index, popularity_dict)
+                    #finalstring1 = replacer(couldbeword[index], index, finalstring1)
+                    #finalstring1 = cleanup(finalstring1, index)
+                    #finalstring2 = replacer(addwordtodatindex(difference1, couldbeword[index], index), index, finalstring2)
+                    #finalstring2 = cleanup(finalstring2, index)
                 print("How finalstring1 looks now:", str_returner(finalstring1))
                 print("How finalstring2 looks now:", str_returner(finalstring2))
 
