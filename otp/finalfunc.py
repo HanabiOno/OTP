@@ -21,7 +21,6 @@ from crack import(
 )
 
 import nltk
-nltk.download('punkt')
 
 with open("../cyphertext0.txt", "r") as cypher0:
     c0 = cypher0.read()
@@ -41,7 +40,7 @@ popularity_dict = {}
 book_list_1 =[ '../book1.txt', '../book2.txt', '../book3.txt', '../book4.txt', '../book5.txt']
 popularity_dict =  pop_dict_creator(book_list_1, popularity_dict)
 
-def helper(b, difference):
+def helper(b, difference= difference1):
     '''By entering a dictionary with couldbeenglish strings and their startidx,
     this helper function will be used repeatedly to find sequences of these strings
     that will produce a couldbeenglish string on the other side as well. It will
@@ -95,42 +94,49 @@ def helper2(couldbeworddict, d=difference0):
     can expand from"""
     curdict = couldbeword
     nextdict = curdict
-    while nextdict != {}:
-        for idx in curdict:
-            if d == difference1:
-                d = difference0
+    curdict2 = curdict
+
+    for idx in curdict:
+        if d == difference1:
+            d = difference0
+        else:
+            d = difference1
+        startidx = idx #will be updated
+        endidx = idx + len(curdict[idx]) - 1 #will be updated
+        reversestring = addwordtodatindex(d, curdict[idx], idx) #will be updated
+        splitted = nltk.word_tokenize(reversestring)
+        print("splitted reversestring", splitted)
+        start = splitted[0]
+        end = splitted[-1]
+        startindex_end = endidx - len(end) +1
+        boundarywords = {}
+        boundarywords[idx] = start
+        boundarywords[startindex_end] = end
+        if d == difference1:
+            d = difference0
+        else:
+            d = difference1
+        nextdict = helper(boundarywords, d)
+        print('This is the outcome', nextdict)
+        if nextdict != {}:
+            for key in nextdict:
+                curdict[key]=nextdict[key]
+            if len(nextdict) == 1:
+                nextdict = helper(nextdict)
             else:
-                d = difference1
-            startidx = idx #will be updated
-            endidx = idx + len(couldbeword[idx]) - 1 #will be updated
-            reversestring = addwordtodatindex(d, couldbeword[idx], idx) #will be updated
-            print(couldbeword[idx], d == difference0, idx)
-            splitted = nltk.word_tokenize(reversestring)
-            print("splitted reversestring", splitted)
-            start = splitted[0]
-            end = splitted[-1]
-            startindex_end = endidx - len(end) +1
-            boundarywords = {}
-            boundarywords[idx] = start
-            boundarywords[startindex_end] = end
-            if d == difference1:
-                d = difference0
-            else:
-                d = difference1
-            nextdict = helper(boundarywords, d)
-            print('This is the outcome', nextdict)
-            if nextdict != {}:
-                helper2(nextdict,d)
-            elif nextdict == {}:
-                removekeys = []
-                #Remove couldbeenglish words if their sequences don't give good outcomes
-                for key in curdict:
-                    if isenglishword(curdict[key]):
-                        continue
-                    else:
-                        removekeys.append(key)
-                for key in removekeys:
-                    del curdict[key]
+                nextdict = helper2(nextdict,d)
+        elif nextdict == {}:
+            removekeys = []
+            #Remove couldbeenglish words if their sequences don't give good outcomes
+            for key in nextdict:
+                if isenglishword(nextdict[key]):
+                    continue
+                else:
+                    removekeys.append(key)
+            for key in removekeys:
+                del curdict2[key]
+        print(curdict2)
+    return curdict2
 
 '''This is the final function that should decypher with manual help'''
 j = 0
@@ -154,7 +160,7 @@ while j < 5:
             print(b)
             print("Following passes couldbeenglish after addition findwordswithsequence(commong eng ngram above) to difference1:")
 
-            couldbeword2 = helper(b, difference1)
+            couldbeword2 = helper(b)
             for key in couldbeword2:
                 couldbeword[key]=couldbeword2[key]
 
