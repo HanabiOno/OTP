@@ -80,10 +80,11 @@ def addwordtodatindex(d, word, index):
     word_length = len(word)
     return add_modulo_alphabet(d[index:(index + word_length)], word)
 
-def couldbeenglish(str1):
+def couldbeenglish(str1, simple = False):
     #A function that takes a string and returns True if the string looks like english
     CAPITALS = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
     IGNORED = ("%$#*/@")#No functionality for these symbols
+    SIGNORED = ("0123456789()[]:;-")
     NUMBERS = ("0123456789")
     OPENERS = ("([")
     CLOSERS = (")]")
@@ -97,6 +98,12 @@ def couldbeenglish(str1):
         if str1[i] in IGNORED:
             return False
         i += 1
+    if simple == True:
+        i=0
+        while i < len(str1):
+            if str1[i] in SIGNORED:
+                return False
+            i += 1
     i=0
     while i < len(str1) - 1:
         if str1[i] in CAPITALS and str1[i+1] not in LETTERS:
