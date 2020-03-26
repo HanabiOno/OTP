@@ -134,7 +134,7 @@ while j < 5:
                 finalstring2 = str_indexer('-'*len(difference0))
                 for index in couldbeword:
                     finalstring1 = lst_replacer (finalstring1, couldbeword[index], index, popularity_dict)
-                    finalstring2 = lst_replacer (finalstring2, addwordtodatindex(difference1, couldbeword[index], index), index, popularity_dict)
+                    finalstring2 = lst_replacer (finalstring2, couldbeword[index], index, popularity_dict)
                     #finalstring1 = replacer(couldbeword[index], index, finalstring1)
                     #finalstring1 = cleanup(finalstring1, index)
                     #finalstring2 = replacer(addwordtodatindex(difference1, couldbeword[index], index), index, finalstring2)
