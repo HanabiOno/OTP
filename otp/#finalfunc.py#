@@ -82,18 +82,12 @@ def helper(b, difference):
     return couldbeword2
 
 def helper2(couldbeworddict, d=difference0):
-    curdict = couldbeword
-    nextdict = curdict
-    while nextdict != {}:
-        for idx in curdict:
-            if d == difference1:
-                d = difference0
-            else:
-                d = difference1
+    curdict={'empty':'dict'}
+    while curdict != {}:
+        for idx in couldbeword:
             startidx = idx #will be updated
             endidx = idx + len(couldbeword[idx]) - 1 #will be updated
             reversestring = addwordtodatindex(d, couldbeword[idx], idx) #will be updated
-            print(couldbeword[idx], d == difference0, idx)
             splitted = nltk.word_tokenize(reversestring)
             print("splitted reversestring", splitted)
             start = splitted[0]
@@ -102,24 +96,12 @@ def helper2(couldbeworddict, d=difference0):
             boundarywords = {}
             boundarywords[idx] = start
             boundarywords[startindex_end] = end
+            curdict = helper(boundarywords, d)
             if d == difference1:
                 d = difference0
             else:
                 d = difference1
-            nextdict = helper(boundarywords, d)
-            print('This is the outcome', nextdict)
-            if nextdict != {}:
-                helper2(nextdict,d)
-            elif nextdict == {}:
-                removekeys = []
-                #Remove couldbeenglish words if their sequences don't give good outcomes
-                for key in boundarywords:
-                    if isenglishword(boundarywords[key]):
-                        continue
-                    else:
-                        removekeys.append(key)
-                for key in removekeys:
-                    del boundarywords[key]
+            print('This is the outcome',boundarywords,helper(boundarywords, d))
 
 j = 0
 while j < 5:
@@ -152,7 +134,7 @@ while j < 5:
                 finalstring2 = str_indexer('-'*len(difference0))
                 for index in couldbeword:
                     finalstring1 = lst_replacer (finalstring1, couldbeword[index], index, popularity_dict)
-                    finalstring2 = lst_replacer (finalstring2, addwordtodatindex(difference1, couldbeword[index], index), index, popularity_dict)
+                    finalstring2 = lst_replacer (finalstring2, couldbeword[index], index, popularity_dict)
                     #finalstring1 = replacer(couldbeword[index], index, finalstring1)
                     #finalstring1 = cleanup(finalstring1, index)
                     #finalstring2 = replacer(addwordtodatindex(difference1, couldbeword[index], index), index, finalstring2)
@@ -164,9 +146,8 @@ while j < 5:
             print('end of loop nr:', j+1)
             j += 1
 
-
 #btest = {318: 'the', 323: 'i'}
-#btest2 = {823: 'thereb'}
+#btest2 = {381: 'dfather'}
 #print(helper(btest, difference1))
 #print(helper(btest2, difference0))
 
