@@ -8,6 +8,8 @@ from crack import(
     str_returner,
     collision_finder,
     couldbeenglish,
+    pop_dict_creator,
+    chooser,
 )
 from otp import (
     one_time_pad,
@@ -81,5 +83,11 @@ class TestPM(unittest.TestCase):
     def test_couldbeenglish(self):
         self.assertEqual(couldbeenglish("ing.Wi", simple = True), False)
 
+     def test_chooser(self): 
+        self.assertEqual(chooser('hello', 'interview', popularity_dict), 'interview')
+    
+    def test_chooser(self): 
+        self.assertEqual(chooser('johannesburg', 'neuroscience', popularity_dict), 'neuroscience')
+        
 if __name__ == '__main__':
     unittest.main()
