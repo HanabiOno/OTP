@@ -407,7 +407,7 @@ def func_loop(string1, string2):# a function that allows for the continual guess
         print(str_returner(temp1))
         second_input = input('Do you want to keep this string?:')
         if second_input == 'yes' or second_input == 'yes ':
-            new_str1 = temp1
+new_str1 = temp1
             new_str2 = temp2
         user_input = input("Type yes if you want to continue")
 
@@ -432,18 +432,20 @@ def cleanup (strng, index):
 #func_loop("hap-----------------", "----------------------")
 
 
-def pop_dict_creator(book_path, popularity_dict):
-    with open(book_path, 'r') as book:
-        lines = book.readlines()
-        for sentence in lines:
-            splitted = sentence.split()
-            for word in splitted:
-                word = word.lower()
-                if word not in popularity_dict:
-                    popularity_dict[word] = 1
-                else:
-                    popularity_dict[word] += 1
-        return popularity_dict
+def pop_dict_creator(book_list, popularity_dict):
+    #Takes a list of books and makes a dictionary of the words in these books
+    for books in booklist:
+        with open(books, 'r') as book:
+            lines = book.readlines()
+            for sentence in lines:
+                splitted = sentence.split()
+                for word in splitted:
+                    word = word.lower()
+                    if word not in popularity_dict:
+                        popularity_dict[word] = 1
+                    else:
+                        popularity_dict[word] += 1
+    return popularity_dict
     
 def str_returner_word(lst, index_start):
     new_list = []
