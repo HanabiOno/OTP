@@ -5,6 +5,8 @@ from crack import(
     addwordtodatindex,
     replacer,
     str_indexer,
+    str_returner,
+    collision_finder,
 )
 from otp import (
     one_time_pad,
@@ -20,6 +22,7 @@ otp0 = one_time_pad(max(len(plaintext1), len(plaintext2)))
 cyphertext1, _ = otp_encrypt(plaintext1, otp0)
 cyphertext2, _ = otp_encrypt(plaintext2, otp0)
 d = subtract_modulo_alphabet(cyphertext2, cyphertext1)
+lst = [[0, 'T'], [1, 'h'], [2, 'e'], [3, ' '], [4, 'c'], [5, 'a'], [6, 't']]
 
 class TestPM(unittest.TestCase):
 
@@ -48,13 +51,16 @@ class TestPM(unittest.TestCase):
         self.assertEqual(addwordtodatindex(d, "cat", 4), "y b")
 
     def str_indexer(self):
-        self.assertEqual(str_indexer('The cat'), [[0, 'T'], [1, 'h'], [2, 'e'], [3, ' '], [4, 'c'], [5, 'a'], [6, 't']])
+        self.assertEqual(str_indexer('The cat'), lst, [6, 't']) 
 
     def test_replacer(self):
-        self.assertEqual(replacer('fox', 4,[[0, 'T'], [1, 'h'], [2, 'e'], [3, ' '], [4, 'c'], [5, 'a'], [6, 't']]), [[0, 'T'], [1, 'h'], [2, 'e'], [3, ' '], [4, 'f'], [5, 'o'], [6, 'x']])
+         self.assertEqual(replacer('fox', 4,lst), [[0, 'T'], [1, 'h'], [2, 'e'], [3, ' '], [4, 'f'], [5, 'o'], [6, 'x']])
 
-def test_str_returner(self):
-        self.assertEqual(str_returner([[0, 'T'], [1, 'h'], [2, 'e'], [3, ' '], [4, 'c'], [5, 'a'], [6, 't']]), 'The cat')
+    def test_str_returner(self):
+        self.assertEqual(str_returner(lst), 'The cat')
+        
+    def test_collision_finder(self): #new
+        self.assertEqual(collision_finder(lst, 'fox', 3), [True, 3])
 
 if __name__ == '__main__':
     unittest.main()

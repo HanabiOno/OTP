@@ -338,7 +338,8 @@ def func_loop(string1, string2):
             new_str2 = temp2
         user_input = input("Type yes if you want to continue")
 
-def cleanup (strng, index):#if collisions occur in the list, it removes the undesired letters. 
+def cleanup (strng, index):
+    #if collisions occur in the list, it removes the undesired letters. 
     counter = 0
     if (index-counter) > 0: #makes sure word is not at the beginning of a sentence
         while strng[index-counter][1] != '-':
