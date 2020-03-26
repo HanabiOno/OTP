@@ -392,7 +392,7 @@ def str_indexer(strng): #takes in a string and returns a list with the letters a
     return lst
 
 
-def input_module(c1_c2, c2_c1, string1, string2):
+def input_module(c1_c2, c2_c1, string1, string2):#allows for user testing of the string
     choice = input("Choose string to start from: (1/2)")
     user_index = eval(input('Enter index you want to start from: '))
     user_word = input('Enter word: ')
@@ -429,7 +429,7 @@ def func_loop(string1, string2):# a function that allows for the continual guess
             new_str2 = temp2
         user_input = input("Type yes if you want to continue")
 
-def cleanup (strng, index):
+def cleanup (strng, index):#if collisions occur in the list, it removes the undesired letters. 
     counter = 0
     if (index-counter) > 0: #makes sure word is not at the beginning of a sentence
         while strng[index-counter][1] != '-':
@@ -465,7 +465,8 @@ def pop_dict_creator(book_list, popularity_dict):
                         popularity_dict[word] += 1
     return popularity_dict
     
-def str_returner_word(lst, index_start):
+def str_returner_word(lst, index_start):#from a given index in our list, returns it as a string. 
+
     new_list = []
     counter = 0
     while lst[index_start+counter][1] != '-':
@@ -473,7 +474,7 @@ def str_returner_word(lst, index_start):
         counter += 1
     return ''.join(new_list)
             
-def chooser(word1, word2, pop_dict):
+def chooser(word1, word2, pop_dict):#given two words, decideds which word to keep. 
     temp1 = word1.lower()
     temp2 = word2.lower()
     if temp1 in pop_dict and temp2 in pop_dict:
@@ -497,7 +498,7 @@ def finder(lst, index): #finds beginning index of a string
         counter += 1
     return (index-counter + 1)
 
-def collision_finder(lst, word, index):
+def collision_finder(lst, word, index): #find collisions between words (if they have the same index)
     if lst[index][1] != '-':
         return ([True, index])
     for i in range(len(word)):
@@ -507,7 +508,7 @@ def collision_finder(lst, word, index):
 
 
 
-def lst_replacer (finalstring, couldbeword, index, pop_dict):
+def lst_replacer (finalstring, couldbeword, index, pop_dict): #adds a new word to our string and resolves any collisions that would occur
     if collision_finder(finalstring, couldbeword, index)[0] == True:
         if collision_finder(finalstring, couldbeword, index)[1] > index:
             collisionword = str_returner_word(finalstring, collision_finder(finalstring, couldbeword, index)[1])
