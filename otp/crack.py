@@ -303,15 +303,30 @@ def couldbeenglish(str1): # A function that takes a string and returns True if t
             indexofspecials.append(i)
         i += 1
     if not indexofspecials: #if the list is empty
+        if str1[0] in CAPITALS:
+            return isngram(str1, start = True)
         return isngram(str1)
     checkcount = 0 #to see if we actually did any real checks
     if 0 not in indexofspecials: #let's check the first symbols up to the first special
         tmpstring = str1[:indexofspecials[0]]
         if len(tmpstring) > 2:
-            if isngram(tmpstring, end = True) == False:
-                return False
+            if tmpstring[0] in CAPITALS:
+                if isenglishword(tmpstring) == False:
+                    return False
+                else:
+                    checkcount += 1
             else:
-                checkcount += 1
+                if isngram(tmpstring, end = True) == False:
+                    return False
+                else:
+                    checkcount += 1
+        else:
+            if tmpstring[0] in CAPITALS:
+                if isenglishword(tmpstring) == False:
+                    return False
+            else:
+                if isngram(tmpstring, end = True) == False:
+                    return False
     if len(str1) - 1 not in indexofspecials: #let's check the symbols after the last special
         tmpstring = str1[indexofspecials[-1] + 1:]
         if len(tmpstring) > 2:
@@ -319,6 +334,9 @@ def couldbeenglish(str1): # A function that takes a string and returns True if t
                 return False
             else:
                 checkcount += 1
+        else:
+            if isngram(tmpstring, start = True) == False:
+                return False
     i=0
     #Let's check if the symbols between the specials make english words
     while i + 1 < len(indexofspecials):
@@ -432,18 +450,20 @@ def cleanup (strng, index):
 #func_loop("hap-----------------", "----------------------")
 
 
-def pop_dict_creator(book_path, popularity_dict):
-    with open(book_path, 'r') as book:
-        lines = book.readlines()
-        for sentence in lines:
-            splitted = sentence.split()
-            for word in splitted:
-                word = word.lower()
-                if word not in popularity_dict:
-                    popularity_dict[word] = 1
-                else:
-                    popularity_dict[word] += 1
-        return popularity_dict
+def pop_dict_creator(book_list, popularity_dict):
+    #Takes a list of books and makes a dictionary of the words in these books
+    for books in book_list:
+        with open(books, 'r') as book:
+            lines = book.readlines()
+            for sentence in lines:
+                splitted = sentence.split()
+                for word in splitted:
+                    word = word.lower()
+                    if word not in popularity_dict:
+                        popularity_dict[word] = 1
+                    else:
+                        popularity_dict[word] += 1
+    return popularity_dict
     
 def str_returner_word(lst, index_start):
     new_list = []

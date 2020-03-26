@@ -36,8 +36,8 @@ finalstring1 = str_indexer('-'*len(difference0))
 finalstring2 = str_indexer('-'*len(difference0))
 
 popularity_dict = {}
-book_path_1 = '../book1.txt'
-popularity_dict =  pop_dict_creator(book_path_1, popularity_dict)
+book_list_1 =[ '../book1.txt', '../book2.txt', '../book3.txt', '../book4.txt', '../book5.txt']
+popularity_dict =  pop_dict_creator(book_list_1, popularity_dict)
 
 def helper(b, difference):
     '''This function will return a new dict with the differences the other way around'''
