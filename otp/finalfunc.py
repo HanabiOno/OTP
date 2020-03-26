@@ -120,7 +120,7 @@ def helper2(couldbeworddict, d=difference0):
         print('This is the outcome', nextdict)
         if nextdict != {}:
             for key in nextdict:
-                curdict[key]=nextdict[key]
+                curdict2[key]=nextdict[key]
             if len(nextdict) == 1:
                 nextdict = helper(nextdict)
             else:
@@ -128,14 +128,15 @@ def helper2(couldbeworddict, d=difference0):
         elif nextdict == {}:
             removekeys = []
             #Remove couldbeenglish words if their sequences don't give good outcomes
-            for key in nextdict:
-                if isenglishword(nextdict[key]):
+            if isenglishword(curdict2[idx]):
                     continue
-                else:
-                    removekeys.append(key)
-            for key in removekeys:
-                del curdict2[key]
+            else:
+                removekeys.append(idx)
         print(curdict2)
+
+    for key in removekeys:
+        del curdict2[key]
+    print(curdict2)
     return curdict2
 
 '''This is the final function that should decypher with manual help'''
