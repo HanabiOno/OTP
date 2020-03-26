@@ -392,7 +392,7 @@ def cleanup (lst, index):
     #if collisions occur in the list, it removes the undesired letters. 
     counter = 0
     if (index-counter) > 0: #makes sure word is not at the beginning of a sentence
-        while lst[index-counter][1] != '-' and strng[index-counter][1] != ' ':
+        while lst[index-counter][1] != '-' and lst[index-counter][1] != ' ':
             lst[index-counter][1] = '-'
             if index-counter > 0:
                 counter += 1
