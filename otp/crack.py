@@ -452,7 +452,7 @@ def cleanup (strng, index):
 
 def pop_dict_creator(book_list, popularity_dict):
     #Takes a list of books and makes a dictionary of the words in these books
-    for books in booklist:
+    for books in book_list:
         with open(books, 'r') as book:
             lines = book.readlines()
             for sentence in lines:
