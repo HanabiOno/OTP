@@ -61,7 +61,12 @@ def helper(b, difference):
                 permission = input("Do you give permission to the combi above? (y/n)")
                 if permission == "y":
                     if wordstartindex in couldbeword2:
-                        del couldbeword2[wordstartindex]
+                        print(couldbeword2[wordstartindex])
+                        replace = input("Do you want to replace? (y/n)")
+                        if replace == 'y':
+                            couldbeword2[wordstartindex] =  word
+                        elif replace == 'n':
+                            continue
                     else:
                         couldbeword2[wordstartindex] = word
                 elif permission == 'n':
