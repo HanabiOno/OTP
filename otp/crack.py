@@ -150,9 +150,7 @@ def couldbeenglish(str1, simple = True):
                     elif str1[i] in LETTERS:
                         return False
                 elif str1[i+2] in LETTERS:
-                    if str1[i] in ENDSPECIALS:
-                        return False
-                    elif str1[i] in QUOTES:
+                    if str1[i] in QUOTES:
                         return False
             i +=1
     else:
