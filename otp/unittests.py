@@ -82,7 +82,8 @@ class TestPM(unittest.TestCase):
     def test_couldbeenglish_capitalafterpunct(self):
         self.assertEqual(couldbeenglish("ing.Wi", simple = True), False)
 
-    def test_finder(
+    def test_finder(self):
+        self.assertEqual(finder(lst, 4), 4)
 
 if __name__ == '__main__':
     unittest.main()
