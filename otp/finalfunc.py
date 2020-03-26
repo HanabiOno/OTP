@@ -113,13 +113,13 @@ def helper2(couldbeworddict, d=difference0):
             elif nextdict == {}:
                 removekeys = []
                 #Remove couldbeenglish words if their sequences don't give good outcomes
-                for key in boundarywords:
-                    if isenglishword(boundarywords[key]):
+                for key in curdict:
+                    if isenglishword(curdict[key]):
                         continue
                     else:
                         removekeys.append(key)
                 for key in removekeys:
-                    del boundarywords[key]
+                    del curdict[key]
 
 j = 0
 while j < 5:
