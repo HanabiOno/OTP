@@ -76,7 +76,7 @@ def helper(b, difference):
                         else:
                             couldbeword2[wordstartindex] = word
                     elif permission == 'n':
-                    continue
+                        continue
     return couldbeword2
 
 def helper2(couldbeworddict, d=difference0):

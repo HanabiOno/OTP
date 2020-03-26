@@ -425,7 +425,7 @@ def func_loop(string1, string2):# a function that allows for the continual guess
         print(str_returner(temp1))
         second_input = input('Do you want to keep this string?:')
         if second_input == 'yes' or second_input == 'yes ':
-new_str1 = temp1
+            new_str1 = temp1
             new_str2 = temp2
         user_input = input("Type yes if you want to continue")
 
