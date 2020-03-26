@@ -7,6 +7,7 @@ from crack import(
     str_indexer,
     str_returner,
     couldbeenglish,
+    finder
 )
 from otp import (
     one_time_pad,
@@ -58,23 +59,25 @@ class TestPM(unittest.TestCase):
     def test_str_returner(self):
         self.assertEqual(str_returner([[0, 'T'], [1, 'h'], [2, 'e'], [3, ' '], [4, 'c'], [5, 'a'], [6, 't']]), 'The cat')
 
-    def test_couldbeenglish(self):
+    def test_couldbeenglish_good(self):
         self.assertEqual(couldbeenglish("ing, wi", simple = True), True)
 
-    def test_couldbeenglish(self):
+    def test_couldbeenglish_capital(self):
         self.assertEqual(couldbeenglish("inG, wi", simple = True), False)
 
-    def test_couldbeenglish(self):
+    def test_couldbeenglish_dubblepunct(self):
         self.assertEqual(couldbeenglish("ing,.  wi", simple = True), False)
 
-    def test_couldbeenglish(self):
+    def test_couldbeenglish_numberinbetween(self):
         self.assertEqual(couldbeenglish("in9, wi", simple = True), False)
 
-    def test_couldbeenglish(self):
+    def test_couldbeenglish_I(self):
         self.assertEqual(couldbeenglish("I", simple = True), True)
 
-    def test_couldbeenglish(self):
+    def test_couldbeenglish_capitalafterpunct(self):
         self.assertEqual(couldbeenglish("ing.Wi", simple = True), False)
+
+    def test_finder(
 
 if __name__ == '__main__':
     unittest.main()
