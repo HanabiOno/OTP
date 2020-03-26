@@ -430,3 +430,83 @@ def cleanup (strng, index):
 
 
 #func_loop("hap-----------------", "----------------------")
+
+
+def pop_dict_creator(book_path, popularity_dict):
+    with open(book_path, 'r') as book:
+        lines = book.readlines()
+        for sentence in lines:
+            splitted = sentence.split()
+            for word in splitted:
+                word = word.lower()
+                if word not in popularity_dict:
+                    popularity_dict[word] = 1
+                else:
+                    popularity_dict[word] += 1
+        return popularity_dict
+    
+def str_returner_word(lst, index_start):
+    new_list = []
+    counter = 0
+    while lst[index_start+counter][1] != '-':
+        new_list.append(lst[index_start+counter][1])
+        counter += 1
+    return ''.join(new_list)
+            
+def chooser(word1, word2, pop_dict):
+    temp1 = word1.lower()
+    temp2 = word2.lower()
+    if temp1 in pop_dict and temp2 in pop_dict:
+        if pop_dict[temp1] > pop_dict[temp2]:
+            return word1
+        else:
+            return word2
+    elif temp1 in pop_dict:
+        return word1
+    elif temp2 in pop_dict:
+        return word2
+    else:
+        if len(word1) > len(word2):
+            return word1
+        else:
+            return word2
+    
+def finder(lst, index): #finds beginning index of a string
+    counter = 1
+    while lst[index-counter][1] != '-':
+        counter += 1
+    return (index-counter + 1)
+
+def collision_finder(lst, word, index):
+    if lst[index][1] != '-':
+        return ([True, index])
+    for i in range(len(word)):
+        if lst[index+i+1][1] != '-':
+            return [True, index+i+1]
+    return [False, 'None']
+
+
+
+def lst_replacer (finalstring, couldbeword, index, pop_dict):
+    if collision_finder(finalstring, couldbeword, index)[0] == True:
+        if collision_finder(finalstring, couldbeword, index)[1] > index:
+            collisionword = str_returner_word(finalstring, collision_finder(finalstring, couldbeword, index)[1])
+            word = chooser(couldbeword, collisionword, pop_dict)
+            if word == couldbeword: 
+                finalstring = replacer(word, index, finalstring)
+                finalstring = cleanup(finalstring, index)
+        else:
+            start_index = finder(finalstring, index)
+            collisionword = str_returner_word(finalstring, start_index)
+            word = chooser(couldbeword, collisionword, pop_dict)
+            if word == couldbeword:
+                finalstring = replacer(word, index, finalstring)
+                finalstring = cleanup(finalstring, index)
+                
+        return finalstring
+    
+    else:
+        finalstring = replacer(word, index, finalstring)
+        return finalstring
+    
+    

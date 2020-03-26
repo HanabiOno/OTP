@@ -15,6 +15,7 @@ from crack import(
     str_returner,
     couldbeenglish,
     cleanup,
+    pop_dict_creator,
 )
 
 import nltk
@@ -33,6 +34,9 @@ plaintext2 = '-'*len(difference0)
 finalstring1 = str_indexer('-'*len(difference0))
 finalstring2 = str_indexer('-'*len(difference0))
 
+popularity_dict = {}
+book_path_1 = 'book1.txt'
+popularity_dict =  pop_dict_creator(book_path_1, popularity_dict)
 
 def helper(b, difference):
     '''This function will return a new dict with the differences the other way around'''
@@ -57,6 +61,7 @@ def helper(b, difference):
             if couldbeenglish(dif) == True: #if the word gives a english outcome it is good
             # There are occurences where there are more then 1 couldbeenglish possibilities at the same wordstartindex
             # To make sure we have the right one, we only safe it when there is only 1 option
+                #if word in popularity_dict: 
                 print(dif,'wordofsequence is:', word)
                 permission = input("Do you give permission to the combi above? (y/n)")
                 if permission == "y":
