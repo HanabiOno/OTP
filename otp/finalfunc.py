@@ -42,7 +42,15 @@ book_list_1 =[ '../book1.txt', '../book2.txt', '../book3.txt', '../book4.txt', '
 popularity_dict =  pop_dict_creator(book_list_1, popularity_dict)
 
 def helper(b, difference):
-    '''This function will return a new dict with the differences the other way around'''
+    '''By entering a dictionary with couldbeenglish strings and their startidx,
+    this helper function will be used repeatedly to find sequences of these strings
+    that will produce a couldbeenglish string on the other side as well. It will
+    return a dict with those sequences that give a could be english string on the
+    other side with their startindex
+
+    Example: "renewal" -> "ending i"
+            "[s]ending" -> " renew"
+            '''
     couldbeword2 = {} #safe all words that have english outcome and only use those with value 1, to be sure
     for key in b: #We'll now go through the english ngrams we found
         c = findwordswithsequence(b[key]) #would return english words with that ngram
@@ -82,6 +90,9 @@ def helper(b, difference):
     return couldbeword2
 
 def helper2(couldbeworddict, d=difference0):
+    """This helper function is especially to expand from words that we have found to find new ones.
+    Note that only the first and last part of the string are used because that is the only place we
+    can expand from"""
     curdict = couldbeword
     nextdict = curdict
     while nextdict != {}:
@@ -121,6 +132,7 @@ def helper2(couldbeworddict, d=difference0):
                 for key in removekeys:
                     del curdict[key]
 
+'''This is the final function that should decypher with manual help'''
 j = 0
 while j < 5:
     with open('../english_trigrams.txt', 'r') as trigrams:
