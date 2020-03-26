@@ -1,3 +1,4 @@
+
 from otp import (
     one_time_pad,
     otp_encrypt,
@@ -35,7 +36,7 @@ finalstring1 = str_indexer('-'*len(difference0))
 finalstring2 = str_indexer('-'*len(difference0))
 
 popularity_dict = {}
-book_path_1 = 'book1.txt'
+book_path_1 = '../book1.txt'
 popularity_dict =  pop_dict_creator(book_path_1, popularity_dict)
 
 def helper(b, difference):
@@ -61,20 +62,20 @@ def helper(b, difference):
             if couldbeenglish(dif) == True: #if the word gives a english outcome it is good
             # There are occurences where there are more then 1 couldbeenglish possibilities at the same wordstartindex
             # To make sure we have the right one, we only safe it when there is only 1 option
-                #if word in popularity_dict: 
-                print(dif,'wordofsequence is:', word)
-                permission = input("Do you give permission to the combi above? (y/n)")
-                if permission == "y":
-                    if wordstartindex in couldbeword2:
-                        print(couldbeword2[wordstartindex])
-                        replace = input("Do you want to replace? (y/n)")
-                        if replace == 'y':
-                            couldbeword2[wordstartindex] =  word
-                        elif replace == 'n':
-                            continue
-                    else:
-                        couldbeword2[wordstartindex] = word
-                elif permission == 'n':
+                if word in popularity_dict: 
+                    print(dif,'wordofsequence is:', word)
+                    permission = input("Do you give permission to the combi above? (y/n)")
+                    if permission == "y":
+                        if wordstartindex in couldbeword2:
+                            print(couldbeword2[wordstartindex])
+                            replace = input("Do you want to replace? (y/n)")
+                            if replace == 'y':
+                                couldbeword2[wordstartindex] =  word
+                            elif replace == 'n':
+                                continue
+                        else:
+                            couldbeword2[wordstartindex] = word
+                    elif permission == 'n':
                     continue
     return couldbeword2
 
