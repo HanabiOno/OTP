@@ -7,6 +7,7 @@ from crack import(
     str_indexer,
     str_returner,
     collision_finder,
+    couldbeenglish,
 )
 from otp import (
     one_time_pad,
@@ -61,6 +62,24 @@ class TestPM(unittest.TestCase):
         
     def test_collision_finder(self): #new
         self.assertEqual(collision_finder(lst, 'fox', 3), [True, 3])
+
+    def test_couldbeenglish(self):
+        self.assertEqual(couldbeenglish("ing, wi", simple = True), True)
+
+    def test_couldbeenglish(self):
+        self.assertEqual(couldbeenglish("inG, wi", simple = True), False)
+
+    def test_couldbeenglish(self):
+        self.assertEqual(couldbeenglish("ing,.  wi", simple = True), False)
+
+    def test_couldbeenglish(self):
+        self.assertEqual(couldbeenglish("in9, wi", simple = True), False)
+
+    def test_couldbeenglish(self):
+        self.assertEqual(couldbeenglish("I", simple = True), True)
+
+    def test_couldbeenglish(self):
+        self.assertEqual(couldbeenglish("ing.Wi", simple = True), False)
 
 if __name__ == '__main__':
     unittest.main()
