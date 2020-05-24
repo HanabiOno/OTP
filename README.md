@@ -1,11 +1,11 @@
-# Assignment 3: The Lazy Cryptographer
-Group members: Zoë, Tom, Jonathan and Hanabi
+# The Lazy Cryptographer
+Contributors: Zoë, Tom, Jonathan and Hanabi
 
 For our code you need the nltk package, this can be installed in the following way:
 sudo apt-get install python3-pip
 pip3 install nltk
 
-For this assignment we will crack the code of two encrypted messages by using the fact that they are encrypted with the same one-time-pad (otp).
+For this projects we will crack the code of two encrypted messages by using the fact that they are encrypted with the same one-time-pad (otp).
 
 For this code we used a number of helperfunctions, most of which are in the crack.py file, which is in the otp folder, with their respective descriptions.
 
